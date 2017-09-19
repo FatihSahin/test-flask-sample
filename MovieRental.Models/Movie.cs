@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace MovieRental.Models
 {
-    [DataContract]
     public class Movie
     {
         public int Id { get; set; }

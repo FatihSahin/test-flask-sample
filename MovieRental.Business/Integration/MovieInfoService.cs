@@ -1,9 +1,12 @@
-﻿using MovieRental.Models;
+﻿using MovieRental.Business.TestFlask;
+using MovieRental.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using TestFlask.Aspects;
 
 namespace MovieRental.Business.Integration
 {
@@ -18,8 +21,11 @@ namespace MovieRental.Business.Integration
             this.scoreService = scoreService;
         }
 
+        [Playback(typeof(MovieNameIdentifier))]
         public Movie GetInfo(string name)
         {
+            //simulate a delay
+            Thread.Sleep(new Random().Next(500, 2000));
             //Simulate a random movie info service with random year and director data and id
             Movie movie = new Movie
             {

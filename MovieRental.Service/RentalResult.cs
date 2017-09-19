@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MovieRental.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,5 +14,7 @@ namespace MovieRental.Service
         public bool IsSuccess { get; set; }
         [DataMember]
         public string Message { get; set; }
+        [DataMember]
+        public Movie Movie { get; set; }
     }
 }
