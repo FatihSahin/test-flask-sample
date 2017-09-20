@@ -17,13 +17,14 @@ namespace MovieRental.Service
     public class MovieRentalService : IMovieRentalService
     {
         private readonly RentalManager rentalMananger;
+        private readonly MovieInfoService infoService;
 
         public MovieRentalService()
         {
-            MovieScoreService scoreService = new MovieScoreService();
-            MovieInfoService infoService = new MovieInfoService(scoreService);
+            MovieScoreService scoreService = new MovieScoreService(); 
             MovieStockService stockService = new MovieStockService();
 
+            infoService = new MovieInfoService(scoreService);
             rentalMananger = new RentalManager(infoService, stockService);
         }
 
@@ -33,13 +34,25 @@ namespace MovieRental.Service
             //simulate a delay
             Thread.Sleep(new Random().Next(500, 2000));
 
-            //Simulate a buggy movie record
-            if (name == "A Bug's Life")
-            {
-                throw new ApplicationException("Oh my god, this is a bug indeed.");
-            }
+            return rentalMananger.GetMovieWithStockCount(name);
+        }
 
-            return rentalMananger.GetMovie(name);
+        [Playback]
+        public Movie AddMovie(Movie movie)
+        {
+            //simulate a delay
+            Thread.Sleep(new Random().Next(500, 2000));
+
+            return infoService.AddMovieInfo(movie);
+        }
+
+        [Playback]
+        public bool DeleteMovie(string name)
+        {
+            //simulate a delay
+            Thread.Sleep(new Random().Next(500, 2000));
+
+            return infoService.DeleteMovieInfo(name);
         }
 
         [Playback(typeof(MovieNameIdentifier))]

@@ -23,12 +23,12 @@ namespace MovieRental.Business
         }
 
         [Playback(typeof(MovieNameIdentifier))]
-        public Movie GetMovie(string name)
+        public Movie GetMovieWithStockCount(string name)
         {
             //simulate a delay
             Thread.Sleep(new Random().Next(500, 2000));
             //gets movie info from info service
-            var movie = infoService.GetInfo(name);
+            var movie = infoService.GetMovieInfo(name);
             //obtain stock info from stock service
             movie.StockCount = stockService.GetStock(name);
             

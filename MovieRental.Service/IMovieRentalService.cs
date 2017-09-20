@@ -17,5 +17,11 @@ namespace MovieRental.Service
 
         [OperationContract]
         RentalResult RentMovie(string name);
+
+        [OperationContract]
+        Movie AddMovie(Movie movie);
+
+        [OperationContract]
+        bool DeleteMovie(string name);
     }
 }

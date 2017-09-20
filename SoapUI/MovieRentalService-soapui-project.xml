@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="0566bd25-fc30-473d-b82c-a363b575792f" activeEnvironment="Default" name="MovieRentalService" resourceRoot="" soapui-version="5.3.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="27046f6d-683d-4461-a8e8-b55d3d96c06c" wsaVersion="NONE" name="BasicHttpBinding_IMovieRentalService" type="wsdl" bindingName="{http://tempuri.org/}BasicHttpBinding_IMovieRentalService" soapVersion="1_1" anonymous="optional" definition="http://localhost:31728/MovieRentalService.svc?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:31728/MovieRentalService.svc?wsdl"><con:part><con:url>http://localhost:31728/MovieRentalService.svc?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="MovieRentalService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://tempuri.org/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
+<con:soapui-project id="0566bd25-fc30-473d-b82c-a363b575792f" activeEnvironment="Default" name="MovieRentalService" resourceRoot="" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="27046f6d-683d-4461-a8e8-b55d3d96c06c" wsaVersion="NONE" name="BasicHttpBinding_IMovieRentalService" type="wsdl" bindingName="{http://tempuri.org/}BasicHttpBinding_IMovieRentalService" soapVersion="1_1" anonymous="optional" definition="http://localhost:31728/MovieRentalService.svc?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:31728/MovieRentalService.svc?wsdl"><con:part><con:url>http://localhost:31728/MovieRentalService.svc?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="MovieRentalService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://tempuri.org/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:31728/MovieRentalService.svc?xsd=xsd0" namespace="http://tempuri.org/"/>
@@ -20,6 +20,18 @@
   <wsdl:message name="IMovieRentalService_RentMovie_OutputMessage">
     <wsdl:part name="parameters" element="tns:RentMovieResponse"/>
   </wsdl:message>
+  <wsdl:message name="IMovieRentalService_AddMovie_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddMovie"/>
+  </wsdl:message>
+  <wsdl:message name="IMovieRentalService_AddMovie_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddMovieResponse"/>
+  </wsdl:message>
+  <wsdl:message name="IMovieRentalService_DeleteMovie_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMovie"/>
+  </wsdl:message>
+  <wsdl:message name="IMovieRentalService_DeleteMovie_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMovieResponse"/>
+  </wsdl:message>
   <wsdl:portType name="IMovieRentalService">
     <wsdl:operation name="GetMovie">
       <wsdl:input wsaw:Action="http://tempuri.org/IMovieRentalService/GetMovie" message="tns:IMovieRentalService_GetMovie_InputMessage"/>
@@ -28,6 +40,14 @@
     <wsdl:operation name="RentMovie">
       <wsdl:input wsaw:Action="http://tempuri.org/IMovieRentalService/RentMovie" message="tns:IMovieRentalService_RentMovie_InputMessage"/>
       <wsdl:output wsaw:Action="http://tempuri.org/IMovieRentalService/RentMovieResponse" message="tns:IMovieRentalService_RentMovie_OutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="AddMovie">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMovieRentalService/AddMovie" message="tns:IMovieRentalService_AddMovie_InputMessage"/>
+      <wsdl:output wsaw:Action="http://tempuri.org/IMovieRentalService/AddMovieResponse" message="tns:IMovieRentalService_AddMovie_OutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMovie">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMovieRentalService/DeleteMovie" message="tns:IMovieRentalService_DeleteMovie_InputMessage"/>
+      <wsdl:output wsaw:Action="http://tempuri.org/IMovieRentalService/DeleteMovieResponse" message="tns:IMovieRentalService_DeleteMovie_OutputMessage"/>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMovieRentalService" type="tns:IMovieRentalService">
@@ -43,6 +63,24 @@
     </wsdl:operation>
     <wsdl:operation name="RentMovie">
       <soap:operation soapAction="http://tempuri.org/IMovieRentalService/RentMovie" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddMovie">
+      <soap:operation soapAction="http://tempuri.org/IMovieRentalService/AddMovie" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMovie">
+      <soap:operation soapAction="http://tempuri.org/IMovieRentalService/DeleteMovie" style="document"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -84,6 +122,34 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="RentMovieResult" nillable="true" type="q2:RentalResult" xmlns:q2="http://schemas.datacontract.org/2004/07/MovieRental.Service"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddMovie">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="movie" nillable="true" type="q3:Movie" xmlns:q3="http://schemas.datacontract.org/2004/07/MovieRental.Models"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddMovieResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddMovieResult" nillable="true" type="q4:Movie" xmlns:q4="http://schemas.datacontract.org/2004/07/MovieRental.Models"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteMovie">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="name" nillable="true" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteMovieResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteMovieResult" type="xs:boolean"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -170,10 +236,10 @@
          <tem:name>Memento</tem:name>\r
       </tem:GetMovie>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/GetMovie"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="932365b3-ce3f-4bfc-aaf8-fb429b03a800" isOneWay="false" action="http://tempuri.org/IMovieRentalService/RentMovie" name="RentMovie" bindingOperationName="RentMovie" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b99770cc-9521-4808-9314-5d0e5ac8a75e" name="RentMovie_Record"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/GetMovie"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="932365b3-ce3f-4bfc-aaf8-fb429b03a800" isOneWay="false" action="http://tempuri.org/IMovieRentalService/RentMovie" name="RentMovie" bindingOperationName="RentMovie" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b99770cc-9521-4808-9314-5d0e5ac8a75e" name="RentMovie_Record_Sce1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
   &lt;con:entry key="TestFlask-ScenarioNo" value="1"/>
-  &lt;con:entry key="TestFlask-ProjectKey" value="MovieRental"/>
   &lt;con:entry key="TestFlask-Mode" value="Record"/>
+  &lt;con:entry key="TestFlask-ProjectKey" value="MovieRental"/>
 &lt;/xml-fragment></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:31728/MovieRentalService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
@@ -181,7 +247,7 @@
          <tem:name>Memento</tem:name>\r
       </tem:RentMovie>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/RentMovie"/><con:wsrmConfig version="1.2"/></con:call><con:call id="2f2e188b-f35c-46c3-b788-67da39605883" name="RentMovie_Play"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/RentMovie"/><con:wsrmConfig version="1.2"/></con:call><con:call id="2f2e188b-f35c-46c3-b788-67da39605883" name="RentMovie_Play_Sce1_Step1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers"><![CDATA[<xml-fragment xmlns:con="http://eviware.com/soapui/config">
   <con:entry key="TestFlask-ScenarioNo" value="1"/>
   <con:entry key="TestFlask-ProjectKey" value="MovieRental"/>
   <con:entry key="TestFlask-Mode" value="Play"/>
@@ -193,7 +259,7 @@
          <tem:name>Memento</tem:name>\r
       </tem:RentMovie>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/RentMovie"/><con:wsrmConfig version="1.2"/></con:call><con:call id="0480ff40-0dd8-4299-bbfa-cc2e8bf8dab7" name="RentMovie_NoMock"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/RentMovie"/><con:wsrmConfig version="1.2"/></con:call><con:call id="0480ff40-0dd8-4299-bbfa-cc2e8bf8dab7" name="RentMovie_NoMock_Sce1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
   &lt;con:entry key="TestFlask-ScenarioNo" value="1"/>
   &lt;con:entry key="TestFlask-Mode" value="NoMock"/>
   &lt;con:entry key="TestFlask-ProjectKey" value="MovieRental"/>
@@ -211,4 +277,50 @@
          <tem:name>Memento</tem:name>\r
       </tem:RentMovie>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/RentMovie"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/RentMovie"/><con:wsrmConfig version="1.2"/></con:call><con:call id="ada51730-9b10-4986-b56d-7005cf024d14" name="RentMovie_Record_Sce2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  &lt;con:entry key="TestFlask-ScenarioNo" value="2"/>
+  &lt;con:entry key="TestFlask-Mode" value="Record"/>
+  &lt;con:entry key="TestFlask-ProjectKey" value="MovieRental"/>
+&lt;/xml-fragment></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:31728/MovieRentalService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:RentMovie>\r
+         <tem:name>Amazing Spider Man</tem:name>\r
+      </tem:RentMovie>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/RentMovie"/><con:wsrmConfig version="1.2"/></con:call><con:call id="03918273-c671-4603-afb8-4f35ab01181f" name="RentMovie_Record_Sce3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  &lt;con:entry key="TestFlask-ScenarioNo" value="3"/>
+  &lt;con:entry key="TestFlask-ProjectKey" value="MovieRental"/>
+  &lt;con:entry key="TestFlask-Mode" value="Record"/>
+&lt;/xml-fragment></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:31728/MovieRentalService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:RentMovie>\r
+         <tem:name>Amadeus</tem:name>\r
+      </tem:RentMovie>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/RentMovie"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="22d4dc8c-41c8-4a4e-9610-94daa8f12e81" isOneWay="false" action="http://tempuri.org/IMovieRentalService/AddMovie" name="AddMovie" bindingOperationName="AddMovie" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="de91c5d9-655b-426b-82e9-067eba231704" name="AddMovie_Record_Sce2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  &lt;con:entry key="TestFlask-ScenarioNo" value="2"/>
+  &lt;con:entry key="TestFlask-ProjectKey" value="MovieRental"/>
+  &lt;con:entry key="TestFlask-Mode" value="Record"/>
+&lt;/xml-fragment></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:31728/MovieRentalService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:mov="http://schemas.datacontract.org/2004/07/MovieRental.Models">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:AddMovie>\r
+         <tem:movie>\r
+            <mov:Name>Amazing Spider Man</mov:Name>\r
+         </tem:movie>\r
+      </tem:AddMovie>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/AddMovie"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="b5b1d8e1-b3c9-4cf9-bcd8-2e0ba3c91d87" isOneWay="false" action="http://tempuri.org/IMovieRentalService/DeleteMovie" name="DeleteMovie" bindingOperationName="DeleteMovie" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ceaba0f4-c7ab-4def-9cea-6a6b03253409" name="DeleteMovie_Record_Sce3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  &lt;con:entry key="TestFlask-ScenarioNo" value="3"/>
+  &lt;con:entry key="TestFlask-ProjectKey" value="MovieRental"/>
+  &lt;con:entry key="TestFlask-Mode" value="Record"/>
+&lt;/xml-fragment></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:31728/MovieRentalService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <tem:DeleteMovie>\r
+         <tem:name>Amadeus</tem:name>\r
+      </tem:DeleteMovie>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/DeleteMovie"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>
