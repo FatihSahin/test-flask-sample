@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MovieRental.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MovieRental.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Movie">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Director" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReleaseYear" type="xs:int" />
+      <xs:element minOccurs="0" name="Score" nillable="true" type="tns:Score" />
+      <xs:element minOccurs="0" name="StockCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Movie" nillable="true" type="tns:Movie" />
+  <xs:complexType name="Score">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Rating" type="xs:double" />
+      <xs:element minOccurs="0" name="Source" type="tns:RatingSource" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Score" nillable="true" type="tns:Score" />
+  <xs:simpleType name="RatingSource">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Imdb" />
+      <xs:enumeration value="RottenTomatoes" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="RatingSource" nillable="true" type="tns:RatingSource" />
+</xs:schema>

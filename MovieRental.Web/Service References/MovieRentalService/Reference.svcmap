@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1ccb545d-5b27-4daa-a23d-414659ab14ab" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:31728/MovieRentalService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MovieRentalService.disco" MetadataType="Disco" ID="c60566ee-3d6b-4117-9c71-196fb343ff93" SourceId="1" SourceUrl="http://localhost:31728/MovieRentalService.svc?disco" />
+    <MetadataFile FileName="MovieRentalService.xsd" MetadataType="Schema" ID="0970cfc5-b8da-40b4-854a-8951e53a7e88" SourceId="1" SourceUrl="http://localhost:31728/MovieRentalService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MovieRentalService.wsdl" MetadataType="Wsdl" ID="e64b86bd-cb54-456d-b5b0-9b0909e4b848" SourceId="1" SourceUrl="http://localhost:31728/MovieRentalService.svc?wsdl" />
+    <MetadataFile FileName="MovieRentalService1.xsd" MetadataType="Schema" ID="db859601-21b7-4ab1-8f93-ca41bd7db036" SourceId="1" SourceUrl="http://localhost:31728/MovieRentalService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MovieRentalService2.xsd" MetadataType="Schema" ID="f36d9fb5-43b5-49b5-8eaf-5f9be2bad168" SourceId="1" SourceUrl="http://localhost:31728/MovieRentalService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MovieRentalService3.xsd" MetadataType="Schema" ID="d88f7e51-253e-4a30-85cc-d0d71bfd9195" SourceId="1" SourceUrl="http://localhost:31728/MovieRentalService.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
