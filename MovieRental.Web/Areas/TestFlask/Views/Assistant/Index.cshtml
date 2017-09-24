@@ -1,0 +1,51 @@
+﻿@model TestFlask.Client.Models.TestFlaskClientContext
+@functions {
+
+    public string GetBodyVisibility()
+    {
+        return Model.IsViewExpanded ? "visible" : "hidden";
+    }
+}
+<style>
+    .float-bottom-right {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .assistant-container {
+        background-color: powderblue;
+        border: 1px solid black;
+        border-radius: 2px;
+    }
+</style>
+<script type="text/javascript">
+
+    function handleXHR(httpRequest, action, data) {
+        return () => {
+            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                action(data);
+            }
+        }
+    }
+
+    function toggleView() {
+
+        var httpRequest = new XMLHttpRequest();
+
+        httpRequest.onreadystatechange = handleXHR(httpRequest, () => {
+            var elem = document.getElementById("testFlaskAssistantBody");
+            elem.style.visibility = elem.style.visibility === 'hidden' ? 'visible' : 'hidden';
+        });
+        
+        httpRequest.open("GET", '@Url.Action("ToggleView", "Assistant")', true);
+        httpRequest.send();
+    }
+
+</script>
+<div class="assistant-container float-bottom-right"  onload="initAssistant()">
+    <a href="javascript:void(0)" onclick="toggleView()">Test Flask Assistant</a>
+    <div class="assistant-body" id="testFlaskAssistantBody" style="visibility:@GetBodyVisibility();">
+        @Model.ProjectKey
+    </div>
+</div>

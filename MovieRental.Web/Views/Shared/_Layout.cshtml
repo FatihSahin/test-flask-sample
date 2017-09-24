@@ -34,9 +34,10 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
+    @{ Html.RenderPartial("~/Areas/TestFlask/Views/Assistant/Index.cshtml", TestFlask.Client.Models.TestFlaskClientContext.Current); }
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+ 

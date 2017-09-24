@@ -8,7 +8,7 @@ using System.Web;
 using TestFlask.Models.Context;
 using TestFlask.Models.Entity;
 
-namespace TestFlask.Client.Api
+namespace TestFlask.Client.Config
 {
     #region must be seperate file 1
 
@@ -29,7 +29,7 @@ namespace TestFlask.Client.Api
             {
                 if (instance == null)
                 {
-                    var section = ConfigurationManager.GetSection("testFlaskClientConfig/testFlask") as TestFlaskConfigSection;
+                    var section = ConfigurationManager.GetSection("testFlaskClient") as TestFlaskClientConfigSection;
 
                     instance = new TestFlaskClientConfig
                     {
@@ -68,7 +68,7 @@ namespace TestFlask.Client.Api
     #endregion
 
     #region must be seperate file 2
-    public class TestFlaskConfigSection : ConfigurationSection
+    public class TestFlaskClientConfigSection : ConfigurationSection
     {
         [ConfigurationProperty("enabled")]
         public bool Enabled

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace MovieRental.Web.Areas.TestFlask
+namespace TestFlask.Client.Areas.TestFlask
 {
     public class TestFlaskAreaRegistration : AreaRegistration 
     {
@@ -15,10 +15,11 @@ namespace MovieRental.Web.Areas.TestFlask
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "TestFlask_Default",
-                "TestFlask/{action}/{id}",
-                new { controller="TestFlask", action = "Index", id = UrlParameter.Optional }
-            );
+                 "TestFlask_Default",
+                 "TestFlask/{controller}/{action}/{id}",
+                 new { controller = "Assistant", action = "Index", id = UrlParameter.Optional },
+                 new string[] { "TestFlask.Client.Controllers" }
+             );
         }
     }
 }

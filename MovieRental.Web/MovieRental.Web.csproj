@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -140,11 +141,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\TestFlask\Controllers\AssistantController.cs" />
+    <Compile Include="Areas\TestFlask\Models\TestFlaskClientContext.cs" />
     <Compile Include="Areas\TestFlask\TestFlaskAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Areas\TestFlask\TestFlaskClientConfig.cs" />
-    <Compile Include="Areas\TestFlask\Controllers\TestFlaskController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,6 +170,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\MovieRental.Models.Movie.datasource" />
     <Content Include="Areas\TestFlask\Views\web.config" />
+    <Content Include="Areas\TestFlask\Views\Assistant\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -213,8 +216,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\TestFlask\Models\" />
-    <Folder Include="Areas\TestFlask\Views\Shared\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
