@@ -3,7 +3,7 @@
 
     public string GetBodyVisibility()
     {
-        return Model.IsViewExpanded ? "visible" : "hidden";
+        return Model.IsViewExpanded ? "block" : "none";
     }
 }
 <style>
@@ -11,41 +11,244 @@
         position: absolute;
         bottom: 10px;
         right: 10px;
+        z-index: 999;
     }
 
     .assistant-container {
-        background-color: powderblue;
-        border: 1px solid black;
-        border-radius: 2px;
+        background-color: #eaeef3;
+        display: inline-block;
+        border: 1px solid #bbbaba;
+        border-radius: 6px;
+        padding: 3px;
+        font-size: small;
     }
+
+    .assistant-header {
+        padding-bottom: 3px;
+    }
+
+    .assistant-body {
+        margin:10px;
+        display:none;
+    }
+
+    .margin-link {
+        margin: 5px;
+    }
+
+    .steps-container {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .steps-header {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .step-item {
+        margin-top: 3px;
+        margin-bottom: 5px;
+    }
+
+    .step-date {
+        margin-top: 3px;
+        margin-left: 25px;
+        font-size: x-small;
+        font-style: italic;
+    }
+
+    .steps-body {
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+    
 </style>
 <script type="text/javascript">
 
-    function handleXHR(httpRequest, action, data) {
-        return () => {
-            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-                action(data);
-            }
+    var testFlask = {};
+
+    (function createTestFlask($this) {
+
+        $this.initialize = function () {
+
+            $this.selectedScenarioNo = @Model.SelectedScenarioNo;
+            $this.recordMode = @Model.RecordMode.ToString().ToLower();
+
+
+            $this.loadScenarios();
         }
-    }
 
-    function toggleView() {
+        $this.handleXHR = function (httpRequest, action) {
+            return () => {
+                if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+                    action();
+                }
+            }
+        };
 
-        var httpRequest = new XMLHttpRequest();
+        $this.toggleView = function () {
 
-        httpRequest.onreadystatechange = handleXHR(httpRequest, () => {
-            var elem = document.getElementById("testFlaskAssistantBody");
-            elem.style.visibility = elem.style.visibility === 'hidden' ? 'visible' : 'hidden';
-        });
-        
-        httpRequest.open("GET", '@Url.Action("ToggleView", "Assistant")', true);
-        httpRequest.send();
-    }
+            var httpRequest = new XMLHttpRequest();
+
+            httpRequest.onreadystatechange = $this.handleXHR(httpRequest, () => {
+                var elem = document.getElementById("testFlaskAssistantBody");
+                elem.style.display = elem.style.display !== 'block' ? 'block' : 'none';
+            });
+
+            httpRequest.open("GET", '@Url.Action("ToggleView", "Assistant")', true);
+            httpRequest.send();
+        };
+
+        $this.createScenario = function () {
+            var elem = document.getElementById("testFlaskCreateNewScenario");
+            elem.style.display = 'block';
+            var steps = document.getElementById("testFlaskSteps");
+            steps.style.display = 'none';
+        };
+
+        $this.cancelNewScenario = function() {
+            var elem = document.getElementById("testFlaskCreateNewScenario");
+            elem.style.display = 'none';
+            var steps = document.getElementById("testFlaskSteps");
+            steps.style.display = 'block';
+        }
+
+        $this.saveNewScenario = function() {
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = $this.handleXHR(httpRequest, () => {
+                $this.loadScenarios();
+            });
+
+            var scenarioName = document.getElementById("testFlaskNewScenarioName").value;
+
+            httpRequest.open("POST", '@Url.Action("CreateNewScenario", "Assistant")', true);
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            httpRequest.send(`scenarioName=${scenarioName}`); 
+        }
+
+        $this.loadScenarios = function () {
+
+            var httpRequest = new XMLHttpRequest();
+
+            httpRequest.onreadystatechange = $this.handleXHR(httpRequest, () => {
+                var elem = document.getElementById("testFlaskScenariosDropdown");
+
+                $this.removeOptions(elem);
+
+
+                var scenarios = JSON.parse(httpRequest.responseText);
+                scenarios.forEach(sce => {
+                    var option = document.createElement("option");
+                    option.text = sce.ScenarioName;
+                    option.value = sce.ScenarioNo;
+                    option.selected = sce.ScenarioNo === $this.selectedScenarioNo;
+                    elem.add(option);
+                });
+
+                if ($this.selectedScenarioNo) {
+                    $this.loadSteps($this.selectedScenarioNo);
+                }
+                else if (elem.options.length > 0) {
+                    $this.loadSteps(elem.options[0].value);
+                }
+
+            });
+
+
+            httpRequest.open("GET", '@Url.Action("GetScenarios", "Assistant")', true);
+            httpRequest.send();
+        };
+
+        $this.removeOptions = function (selectbox) {
+            var i;
+            for (i = selectbox.options.length - 1 ; i >= 0 ; i--) {
+                selectbox.remove(i);
+            }
+        };
+
+        $this.loadSteps = function(scenarioNo) {
+
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = $this.handleXHR(httpRequest, () => {
+                var elem = document.getElementById("testFlaskSteps");
+                elem.innerHTML = httpRequest.responseText;
+                var recordCheckox = document.getElementById("testFlaskRecordCheckBox");
+                recordCheckox.checked = $this.recordMode;
+            });
+
+            httpRequest.open("POST", '@Url.Action("Steps", "Assistant")', true);
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            httpRequest.send(`scenarioNo=${scenarioNo}`);
+        }
+
+        $this.record = function(scenarioNo) {
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = $this.handleXHR(httpRequest, () => {
+               //do nothing 
+            });
+
+            var shouldRecord = document.getElementById("testFlaskRecordCheckBox").checked;
+
+            httpRequest.open("POST", '@Url.Action("Record", "Assistant")', true);
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            httpRequest.send(`scenarioNo=${scenarioNo}&record=${shouldRecord}`);
+        };
+
+        $this.overwriteStep = function(stepNo) {
+            alert(`overwriteStep ${stepNo}`);
+        };
+
+        $this.editStep = function(stepNo) {
+            var textBox = document.getElementById("testFlaskStepName_" + stepNo);
+            textBox.readOnly = false;
+
+            var editActionsSpan = document.getElementById("testFlaskStepEditActions_" + stepNo);
+            editActionsSpan.style.display = 'inline';
+            var defaultActionsSpan = document.getElementById("testFlaskStepDefaultActions_" + stepNo);
+            defaultActionsSpan.style.display = 'none';
+        };
+
+        $this.saveStep = function(stepNo) {
+            alert(`saveStep ${stepNo}`);
+        };
+
+        $this.cancelStep = function(stepNo) {
+            var textBox = document.getElementById("testFlaskStepName_" + stepNo);
+            textBox.readOnly = true;
+
+            var defaultActionsSpan = document.getElementById("testFlaskStepDefaultActions_" + stepNo);
+            defaultActionsSpan.style.display = 'inline';
+            var editActionsSpan = document.getElementById("testFlaskStepEditActions_" + stepNo);
+            editActionsSpan.style.display = 'none';
+        };
+
+        $this.initialize();
+    })(testFlask);
 
 </script>
-<div class="assistant-container float-bottom-right"  onload="initAssistant()">
-    <a href="javascript:void(0)" onclick="toggleView()">Test Flask Assistant</a>
-    <div class="assistant-body" id="testFlaskAssistantBody" style="visibility:@GetBodyVisibility();">
-        @Model.ProjectKey
+<div class="assistant-container float-bottom-right" onload="initAssistant()">
+    <div class="assistant-header">
+        <a href="javascript:void(0)" class="margin-link" onclick="testFlask.toggleView()">Test Flask Assistant - @Model.ProjectKey</a>
+    </div> 
+    <div class="assistant-body" id="testFlaskAssistantBody" style="display:@GetBodyVisibility();">
+        <div>
+            <span><strong>Scenarios</strong></span>
+            <select id="testFlaskScenariosDropdown" onchange="testFlask.loadSteps(this.value)"></select>
+            <span><a href="javascript:void(0)" class="margin-link" onclick="testFlask.createScenario()">Create New</a></span>
+            <div id="testFlaskCreateNewScenario" style="display:none;padding:5px;">
+                <span>Scenario Name</span>
+                <input type="text" id="testFlaskNewScenarioName" />
+                <div>
+                    <div style="float:right">
+                        <a href="javascript:void(0)" class="margin-link" onclick="testFlask.cancelNewScenario()">Cancel</a>
+                        <a href="javascript:void(0)" class="margin-link" onclick="testFlask.saveNewScenario()">Save</a>
+                    </div>
+                </div>
+            </div>
+            <div id="testFlaskSteps">
+
+            </div>
+        </div>
     </div>
 </div>

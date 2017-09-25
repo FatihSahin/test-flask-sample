@@ -32,5 +32,9 @@ namespace TestFlask.Client.Models
         public string ProjectKey => config.Project.Key;
 
         public bool IsViewExpanded { get; set; }
+
+        public int SelectedScenarioNo { get; set; }
+
+        public bool RecordMode { get; set; }
     }
 }

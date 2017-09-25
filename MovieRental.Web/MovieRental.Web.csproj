@@ -142,6 +142,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\TestFlask\Controllers\AssistantController.cs" />
+    <Compile Include="Areas\TestFlask\Models\StepsViewModel.cs" />
     <Compile Include="Areas\TestFlask\Models\TestFlaskClientContext.cs" />
     <Compile Include="Areas\TestFlask\TestFlaskAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -171,6 +172,7 @@
     <Content Include="Properties\DataSources\MovieRental.Models.Movie.datasource" />
     <Content Include="Areas\TestFlask\Views\web.config" />
     <Content Include="Areas\TestFlask\Views\Assistant\Index.cshtml" />
+    <Content Include="Areas\TestFlask\Views\Assistant\Steps.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
