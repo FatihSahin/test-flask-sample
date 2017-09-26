@@ -4,14 +4,14 @@ using System.Linq;
 using System.Web;
 using TestFlask.Models.Entity;
 
-namespace TestFlask.Client.Models
+namespace TestFlask.Assistant.Models
 {
     public class StepsViewModel
     {
-        public TestFlaskClientContext Context { get; set; }
+        public TestFlaskAssistantContext Context { get; set; }
         public IEnumerable<Step> Steps { get; set; }
 
-        public StepsViewModel(TestFlaskClientContext context, IEnumerable<Step> steps)
+        public StepsViewModel(TestFlaskAssistantContext context, IEnumerable<Step> steps)
         {
             Context = context;
             Steps = steps;

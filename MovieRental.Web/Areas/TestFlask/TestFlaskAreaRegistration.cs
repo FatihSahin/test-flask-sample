@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace TestFlask.Client.Areas.TestFlask
+namespace TestFlask.Assistant.Areas.TestFlask
 {
     public class TestFlaskAreaRegistration : AreaRegistration 
     {

@@ -5,21 +5,24 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.SessionState;
-using TestFlask.Client.Config;
-using TestFlask.Client.Models;
+using TestFlask.Assistant.ApiClient;
+using TestFlask.Assistant.Config;
+using TestFlask.Assistant.Models;
 using TestFlask.Models.Entity;
 
-namespace TestFlask.Client.Controllers
+namespace TestFlask.Assistant.Controllers
 {
     public class AssistantController : Controller
     {
-        private readonly TestFlaskClientConfig config;
-        private readonly TestFlaskClientContext context;
+        private readonly TestFlaskAssistantConfig config;
+        private readonly TestFlaskAssistantContext context;
+        private readonly TestFlaskApi api;
 
         public AssistantController()
         {
-            config = TestFlaskClientConfig.Instance;
-            context = TestFlaskClientContext.Current;
+            config = TestFlaskAssistantConfig.Instance;
+            context = TestFlaskAssistantContext.Current;
+            api = new TestFlaskApi();
         }
 
         [HttpGet]
@@ -31,12 +34,9 @@ namespace TestFlask.Client.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetScenarios() {
-            List<Scenario> scenarios = new List<Scenario>();
-
-            scenarios.Add(new Scenario { ScenarioNo = 1, ScenarioName = "Scenario One" });
-            scenarios.Add(new Scenario { ScenarioNo = 2, ScenarioName = "Scenario Two" });
-
+        public JsonResult GetScenarios()
+        {
+            IEnumerable<Scenario> scenarios = api.GetScenarios();
             return Json(scenarios, JsonRequestBehavior.AllowGet);
         }
 
@@ -44,19 +44,21 @@ namespace TestFlask.Client.Controllers
         public JsonResult CreateNewScenario(string scenarioName)
         {
             //save scenario 
+            Scenario scenario = new Scenario();
+            scenario.ProjectKey = config.Project.Key;
+            scenario.ScenarioName = scenarioName;
+
+            Scenario apiScenario = api.CreateScenario(scenario);
+
             return Json(true);
         }
 
         [HttpPost]
         public PartialViewResult Steps(int scenarioNo)
         {
-            context.SelectedScenarioNo = scenarioNo;
+            context.CurrentScenarioNo = scenarioNo;
 
-            List<Step> steps = new List<Step>();
-
-            steps.Add(new Step { StepNo = scenarioNo * 10 + 1, StepName = "Step1", CreatedOn = DateTime.Now });
-            steps.Add(new Step { StepNo = scenarioNo * 10 + 2, StepName = "Step2", CreatedOn = DateTime.Now });
-            steps.Add(new Step { StepNo = scenarioNo * 10 + 3, StepName = "Step3", CreatedOn = DateTime.Now });
+            IEnumerable<Step> steps = api.GetSteps(scenarioNo);
 
             return PartialView("~/Areas/TestFlask/Views/Assistant/Steps.cshtml", new StepsViewModel(context, steps));
         }
