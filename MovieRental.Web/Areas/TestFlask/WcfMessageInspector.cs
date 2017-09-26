@@ -5,6 +5,9 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
 using System.Web;
+using TestFlask.Assistant.Config;
+using TestFlask.Assistant.Models;
+using TestFlask.Models.Context;
 
 namespace TestFlask.Assistant.WcfExtensions 
 {
@@ -15,10 +18,25 @@ namespace TestFlask.Assistant.WcfExtensions
         /// </summary>
         public object BeforeSendRequest(ref Message request, IClientChannel channel)
         {
-            HttpRequestMessageProperty property = new HttpRequestMessageProperty();
+            var config = TestFlaskAssistantConfig.Instance;
+            var context = TestFlaskAssistantContext.Current;
 
-            property.Headers["User-Agent"] = "value";
-            request.Properties.Add(HttpRequestMessageProperty.Name, property);
+            if (config.Enabled && context != null && context.RecordMode) 
+            {
+                HttpRequestMessageProperty property = request.Properties[HttpRequestMessageProperty.Name] as HttpRequestMessageProperty;
+               
+                property.Headers[ContextKeys.ProjectKey] = config.Project.Key;
+                property.Headers[ContextKeys.ScenarioNo] = context.CurrentScenarioNo.ToString();
+
+                property.Headers[ContextKeys.TestMode] = "Record";
+
+                property.Headers.Remove("VsDebuggerCausalityData");
+
+                if (context.OverwriteStepNo > 0)
+                {
+                    property.Headers[ContextKeys.StepNo] = context.CurrentScenarioNo.ToString();
+                }
+            }
 
             return null;
         }

@@ -37,6 +37,8 @@ namespace TestFlask.Assistant.Models
 
         public int CurrentScenarioNo { get; set; }
 
+        public int OverwriteStepNo { get; set; }
+
         public bool RecordMode { get; set; }
     }
 }

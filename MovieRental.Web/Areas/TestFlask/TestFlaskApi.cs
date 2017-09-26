@@ -73,10 +73,10 @@ namespace TestFlask.Assistant.ApiClient
             return null;
         }
 
-        public Step UpdateStep(Step step)
+        public Step UpdateStepShallow(Step step)
         {
             var httpClient = PrepareClient();
-            var response = httpClient.PutAsJsonAsync("api/step", step).Result;
+            var response = httpClient.PutAsJsonAsync("api/step/shallow", step).Result;
 
             if (response.IsSuccessStatusCode)
             {

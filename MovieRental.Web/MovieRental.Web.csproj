@@ -148,6 +148,7 @@
     <Compile Include="Areas\TestFlask\TestFlaskApi.cs" />
     <Compile Include="Areas\TestFlask\TestFlaskAreaRegistration.cs" />
     <Compile Include="Areas\TestFlask\WcfEndpointBehavior.cs" />
+    <Compile Include="Areas\TestFlask\WcfEndpointBehaviorExtensionElement.cs" />
     <Compile Include="Areas\TestFlask\WcfMessageInspector.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />

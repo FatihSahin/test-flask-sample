@@ -136,7 +136,7 @@
 
             httpRequest.open("POST", '@Url.Action("CreateNewScenario", "Assistant")', true);
             httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            httpRequest.send(`scenarioName=${scenarioName}`); 
+            httpRequest.send(`scenarioName=${scenarioName}`);
         };
 
         $this.loadScenarios = function () {
@@ -167,7 +167,6 @@
 
             });
 
-
             httpRequest.open("GET", '@Url.Action("GetScenarios", "Assistant")', true);
             httpRequest.send();
         };
@@ -180,9 +179,10 @@
         };
 
         $this.loadSteps = function(scenarioNo) {
-
+            
             var httpRequest = new XMLHttpRequest();
             httpRequest.onreadystatechange = $this.handleXHR(httpRequest, () => {
+                $this.currentScenarioNo = scenarioNo;
                 var elem = document.getElementById("testFlaskSteps");
                 elem.innerHTML = httpRequest.responseText;
                 var recordCheckox = document.getElementById("testFlaskRecordCheckBox");
@@ -197,7 +197,7 @@
         $this.record = function(scenarioNo) {
             var httpRequest = new XMLHttpRequest();
             httpRequest.onreadystatechange = $this.handleXHR(httpRequest, () => {
-               //do nothing 
+               //do nothing
             });
 
             var shouldRecord = document.getElementById("testFlaskRecordCheckBox").checked;
@@ -222,7 +222,17 @@
         };
 
         $this.saveStep = function(stepNo) {
-            alert(`saveStep ${stepNo}`);
+            var httpRequest = new XMLHttpRequest();
+            httpRequest.onreadystatechange = $this.handleXHR(httpRequest, () => {
+                $this.cancelStep(stepNo);
+                $this.loadScenarios();
+            });
+
+            var stepName = document.getElementById("testFlaskStepName_" + stepNo).value;
+
+            httpRequest.open("POST", '@Url.Action("UpdateStep", "Assistant")', true);
+            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            httpRequest.send(`stepNo=${stepNo}&stepName=${stepName}`);
         };
 
         $this.cancelStep = function(stepNo) {
@@ -243,7 +253,7 @@
         };
 
         $this.refresh = function() {
-
+            $this.loadScenarios();
         };
 
         $this.initialize();

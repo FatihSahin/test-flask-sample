@@ -44,11 +44,29 @@ namespace TestFlask.Assistant.Controllers
         public JsonResult CreateNewScenario(string scenarioName)
         {
             //save scenario 
-            Scenario scenario = new Scenario();
-            scenario.ProjectKey = config.Project.Key;
-            scenario.ScenarioName = scenarioName;
+            Scenario scenario = new Scenario
+            {
+                ProjectKey = config.Project.Key,
+                ScenarioName = scenarioName
+            };
 
             Scenario apiScenario = api.CreateScenario(scenario);
+
+            return Json(true);
+        }
+
+        [HttpPost]
+        public JsonResult UpdateStep(int stepNo, string stepName)
+        {
+            Step step = new Step
+            {
+                ProjectKey = config.Project.Key,
+                ScenarioNo = context.CurrentScenarioNo,
+                StepNo = stepNo,
+                StepName = stepName
+            };
+
+            Step apiStep = api.UpdateStepShallow(step);
 
             return Json(true);
         }
