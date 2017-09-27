@@ -27,7 +27,8 @@ namespace MovieRental.Service
             {
                 HttpContext.Current.Response.AddHeader("Access-Control-Allow-Methods", "*");
 
-                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers", "Connection, Content-Type, SOAPAction, TestFlask-ScenarioNo, TestFlask-Mode, TestFlask-ProjectKey, TestFlask-StepNo");
+                HttpContext.Current.Response.AddHeader("Access-Control-Allow-Headers",
+                    "Connection, Content-Type, SOAPAction, TestFlask-ScenarioNo, TestFlask-Mode, TestFlask-ProjectKey, TestFlask-StepNo, VsDebuggerCausalityData");
                 HttpContext.Current.Response.AddHeader("Access-Control-Max-Age", "1728000");
                 HttpContext.Current.Response.End();
             }

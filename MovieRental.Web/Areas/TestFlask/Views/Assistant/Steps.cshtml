@@ -19,7 +19,7 @@
                             <strong>#@step.StepNo</strong>
                             <input type="text" id="testFlaskStepName_@step.StepNo" value="@step.StepName" readonly="readonly" />
                             <span id="testFlaskStepDefaultActions_@step.StepNo">
-                                <a href="javascript:void(0)" title="Overwrite" onclick="testFlask.overwriteStep(@step.StepNo)">Overwrite</a> |
+                                <a href="javascript:void(0)" id="testFlaskStepOverwrite_@step.StepNo" onclick="testFlask.overwriteStep(@step.StepNo)">@(Model.Context.OverwriteStepNo == @step.StepNo ? "Stop" : "Overwrite")</a> |
                                 <a href="javascript:void(0)" title="Edit" onclick="testFlask.editStep(@step.StepNo)">Edit</a>
                             </span>
                             <span id="testFlaskStepEditActions_@step.StepNo" style="display:none;">

@@ -82,9 +82,10 @@ namespace TestFlask.Assistant.Controllers
         }
 
         [HttpPost]
-        public JsonResult Record(int scenarioNo, bool record)
+        public JsonResult Record(int scenarioNo, int stepNo, bool record)
         {
             context.RecordMode = record;
+            context.OverwriteStepNo = stepNo;
             return Json(record);
         }
     }

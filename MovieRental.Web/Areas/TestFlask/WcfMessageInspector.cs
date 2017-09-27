@@ -30,11 +30,9 @@ namespace TestFlask.Assistant.WcfExtensions
 
                 property.Headers[ContextKeys.TestMode] = "Record";
 
-                property.Headers.Remove("VsDebuggerCausalityData");
-
                 if (context.OverwriteStepNo > 0)
                 {
-                    property.Headers[ContextKeys.StepNo] = context.CurrentScenarioNo.ToString();
+                    property.Headers[ContextKeys.StepNo] = context.OverwriteStepNo.ToString();
                 }
             }
 
