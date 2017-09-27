@@ -1,4 +1,6 @@
-﻿@model TestFlask.Assistant.Models.TestFlaskAssistantContext
+﻿@using TestFlask.Assistant.Config
+@using TestFlask.Assistant.Models
+@model TestFlaskAssistantContext
 @functions {
 
     public string GetBodyVisibility()
@@ -11,330 +13,57 @@
         return Model.IsViewExpanded ? "inline" : "none";
     }
 }
-<style>
-    .float-bottom-right {
-        position: absolute;
-        bottom: 10px;
-        right: 10px;
-        z-index: 999;
-    }
-
-    .assistant-container {
-        background-color: #eaeef3;
-        display: inline-block;
-        border: 1px solid #bbbaba;
-        border-radius: 6px;
-        padding: 3px;
-        font-size: small;
-        opacity: 0.9;
-    }
-
-    .assistant-header {
-        padding-bottom: 3px;
-    }
-
-    .assistant-body {
-        margin: 10px;
-        display: none;
-    }
-
-    .margin-link {
-        margin: 5px;
-    }
-
-    .steps-container {
-        margin-top: 10px;
-        margin-bottom: 10px;
-        clear: both;
-    }
-
-    .steps-header {
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-
-    .step-item {
-        margin-top: 3px;
-        margin-bottom: 5px;
-    }
-
-    .step-date {
-        margin-top: 3px;
-        margin-left: 25px;
-        font-size: x-small;
-        font-style: italic;
-    }
-
-    .steps-body {
-        max-height: 200px;
-        overflow-y: scroll;
-    }
-</style>
-<div class="assistant-container float-bottom-right" onload="initAssistant()">
-    <div class="assistant-header">
-        <a href="javascript:void(0)" class="margin-link" onclick="testFlask.toggleView()">Test Flask Assistant - @Model.ProjectKey</a>
-        <span style="float:right;">
-            <img id="testFlaskRefreshLoadingGif" src="https://cdnjs.cloudflare.com/ajax/libs/timelinejs/2.25/css/loading.gif" style="display:none;" width="15" />
-            <a id="testFlaskRefresh" style="display:@GetRefreshVisibility();" href="javascript:void(0)" class="margin-link" onclick="testFlask.refresh()">Refresh</a>
-        </span>
-    </div>
-    <div class="assistant-body" id="testFlaskAssistantBody" style="display:@GetBodyVisibility();">
-        <div>
-            <span><strong>Scenarios</strong></span>
-            <select id="testFlaskScenariosDropdown" onchange="testFlask.loadSteps(this.value)"></select>
-            <span>
-                <a href="javascript:void(0)" class="margin-link" onclick="testFlask.createScenario()">New</a>
-                | <a href="javascript:void(0)" class="margin-link" onclick="testFlask.manageScenario()">Manage</a>
+<!-- if test flask is enabled in config, only then render testFlask assistant -->
+@if (TestFlaskAssistantConfig.Instance.Enabled)
+{
+    <div class="test-flask-assistant-container" onload="initAssistant()">
+        <div class="test-flask-assistant-header">
+            <a href="javascript:void(0)" class="test-flask-margin-link" onclick="testFlask.toggleView()">Test Flask Assistant - @Model.ProjectKey</a>
+            <span style="float:right;">
+                <img id="testFlaskRefreshLoadingGif" src="https://cdnjs.cloudflare.com/ajax/libs/timelinejs/2.25/css/loading.gif" style="display:none;" width="15" />
+                <a id="testFlaskRefresh" style="display:@GetRefreshVisibility();" href="javascript:void(0)" class="test-flask-margin-link" onclick="testFlask.refresh()">Refresh</a>
             </span>
-            <div id="testFlaskCreateNewScenario" style="display:none;padding:5px;">
-                <span style="margin-right:5px;">New Scenario Name</span>
-                <input type="text" id="testFlaskNewScenarioName" />
-                <div>
-                    <div style="float:right">
-                        <a href="javascript:void(0)" class="margin-link" onclick="testFlask.cancelNewScenario()">Cancel</a>
-                        <a href="javascript:void(0)" class="margin-link" onclick="testFlask.saveNewScenario()">Save</a>
+        </div>
+        <div class="test-flask-assistant-body" id="testFlaskAssistantBody" style="display:@GetBodyVisibility();">
+            <div>
+                <span><strong>Scenarios</strong></span>
+                <select id="testFlaskScenariosDropdown" onchange="testFlask.loadSteps(this.value)"></select>
+                <span>
+                    <a href="javascript:void(0)" class="test-flask-margin-link" onclick="testFlask.createScenario()">New</a>
+                    | <a href="javascript:void(0)" class="test-flask-margin-link" onclick="testFlask.manageScenario()">Manage</a>
+                </span>
+                <div id="testFlaskCreateNewScenario" style="display:none;padding:5px;">
+                    <span style="margin-right:5px;">New Scenario Name</span>
+                    <input type="text" id="testFlaskNewScenarioName" />
+                    <div>
+                        <div style="float:right">
+                            <a href="javascript:void(0)" class="test-flask-margin-link" onclick="testFlask.cancelNewScenario()">Cancel</a>
+                            <a href="javascript:void(0)" class="test-flask-margin-link" onclick="testFlask.saveNewScenario()">Save</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="testFlaskSteps">
+                <div id="testFlaskSteps">
 
+                </div>
             </div>
         </div>
     </div>
-</div>
-<script type="text/javascript">
-
-    var testFlask = {};
-
-    (function createTestFlask($this) {
-
-        $this.initialize = function () {
-
-            $this.currentScenarioNo = @Model.CurrentScenarioNo;
-            $this.recordMode = @Model.RecordMode.ToString().ToLower();
-            $this.overwriteStepNo = @Model.OverwriteStepNo;
-
-
-            $this.loadScenarios();
-        };
-
-        $this.prepareRequest = function(action) {
-
-            var httpRequest = new XMLHttpRequest();
-
-            httpRequest.onreadystatechange = $this.handleXHR(httpRequest, action);
-
-            var loadingGif = document.getElementById("testFlaskRefreshLoadingGif");
-
-            httpRequest.addEventListener("progress", () => {
-                loadingGif.style.display = 'inline';
-            });
-
-            httpRequest.addEventListener("loadend", () => {
-                setTimeout(() => {
-                    loadingGif.style.display = 'none';
-                }, 500);
-            });
-
-            return httpRequest;
-        }
-
-        $this.handleXHR = function (httpRequest, action) {
-            return () => {
-                if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-                    action();
-                }
+    <script src="~/Scripts/testFlask.js"></script>
+    <script type="text/javascript">
+        //initialize testFlask with options
+        testFlask.initialize({
+            recordMode: @Model.RecordMode.ToString().ToLower(),
+            scenarioNo: @Model.CurrentScenarioNo,
+            overwriteStepNo: @Model.OverwriteStepNo,
+            managerScenarioBaseUrl: '@Model.ManagerUrl' + '/project/' + '@Model.ProjectKey' + '/scenario/',
+            actions: {
+                toggleView: '@Url.Action("ToggleView", "Assistant")',
+                createNewScenario: '@Url.Action("CreateNewScenario", "Assistant")',
+                getScenarios: '@Url.Action("GetScenarios", "Assistant")',
+                steps: '@Url.Action("Steps", "Assistant")',
+                record: '@Url.Action("Record", "Assistant")',
+                updateStep: '@Url.Action("UpdateStep", "Assistant")'
             }
-        };
-
-        $this.toggleView = function () {
-
-            var httpRequest = $this.prepareRequest(() => {
-                var elem = document.getElementById("testFlaskAssistantBody");
-                elem.style.display = elem.style.display !== 'block' ? 'block' : 'none';
-                var refreshLink = document.getElementById("testFlaskRefresh");
-                refreshLink.style.display = elem.style.display === 'none' ? 'none' : 'inline';
-            });
-
-            httpRequest.open("GET", '@Url.Action("ToggleView", "Assistant")', true);
-            httpRequest.send();
-        };
-
-        $this.createScenario = function () {
-            var elem = document.getElementById("testFlaskCreateNewScenario");
-            elem.style.display = 'block';
-            var steps = document.getElementById("testFlaskSteps");
-            steps.style.display = 'none';
-        };
-
-        $this.cancelNewScenario = function() {
-            var elem = document.getElementById("testFlaskCreateNewScenario");
-            elem.style.display = 'none';
-            var steps = document.getElementById("testFlaskSteps");
-            steps.style.display = 'block';
-            var nameText = document.getElementById("testFlaskNewScenarioName");
-            nameText.value = '';
-        };
-
-        $this.saveNewScenario = function() {
-
-            var httpRequest = $this.prepareRequest(() => {
-                $this.cancelNewScenario(); //hide new scenario view
-                $this.loadScenarios();
-            });
-
-            var scenarioName = document.getElementById("testFlaskNewScenarioName").value;
-
-            httpRequest.open("POST", '@Url.Action("CreateNewScenario", "Assistant")', true);
-            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            httpRequest.send(`scenarioName=${scenarioName}`);
-        };
-
-        $this.loadScenarios = function () {
-            var httpRequest = $this.prepareRequest(() => {
-                var elem = document.getElementById("testFlaskScenariosDropdown");
-
-                $this.removeOptions(elem);
-
-
-                var scenarios = JSON.parse(httpRequest.responseText);
-                scenarios.forEach(sce => {
-                    var option = document.createElement("option");
-                    option.text = sce.ScenarioName;
-                    option.value = sce.ScenarioNo;
-                    option.selected = sce.ScenarioNo === $this.currentScenarioNo;
-                    elem.add(option);
-                });
-
-                if ($this.currentScenarioNo) {
-                    $this.loadSteps($this.currentScenarioNo);
-                }
-                else if (elem.options.length > 0) {
-                    $this.loadSteps(elem.options[0].value);
-                }
-
-            });
-
-            httpRequest.open("GET", '@Url.Action("GetScenarios", "Assistant")', true);
-            httpRequest.send();
-        };
-
-        $this.removeOptions = function (selectbox) {
-            var i;
-            for (i = selectbox.options.length - 1 ; i >= 0 ; i--) {
-                selectbox.remove(i);
-            }
-        };
-
-        $this.loadSteps = function(scenarioNo) {
-
-            var httpRequest = $this.prepareRequest(() => {
-                $this.currentScenarioNo = scenarioNo;
-                var elem = document.getElementById("testFlaskSteps");
-                elem.innerHTML = httpRequest.responseText;
-                var recordCheckox = document.getElementById("testFlaskRecordCheckBox");
-                recordCheckox.checked = $this.recordMode;
-                $this.autoReload(recordCheckox.checked);
-            });
-
-            httpRequest.open("POST", '@Url.Action("Steps", "Assistant")', true);
-            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            httpRequest.send(`scenarioNo=${scenarioNo}`);
-        };
-
-        $this.autoReload = function(shouldRecord) {
-            //auto refresh scenarios when record mode is on and a specific step is not selected for overwriting and not already reload on
-            if (shouldRecord && !$this.overwriteStepNo && !$this.reloadIntervalHandle) {
-                $this.reloadIntervalHandle = setInterval($this.loadScenarios, 4000);
-            }
-
-            if (!shouldRecord && $this.reloadIntervalHandle) {
-                clearInterval($this.reloadIntervalHandle); //stop auto refresh when record mode is off
-            }
-        }
-
-        $this.record = function(scenarioNo) {
-            var httpRequest = $this.prepareRequest(() => {
-                //do nothing
-            });
-
-            var shouldRecord = document.getElementById("testFlaskRecordCheckBox").checked;
-            $this.recordMode = shouldRecord;
-            $this.autoReload(shouldRecord);
-
-            httpRequest.open("POST", '@Url.Action("Record", "Assistant")', true);
-            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            httpRequest.send(`scenarioNo=${scenarioNo}&stepNo=${$this.overwriteStepNo}&record=${shouldRecord}`);
-        };
-
-        $this.overwriteStep = function(stepNo) {
-            var overwriteLink = document.getElementById("testFlaskStepOverwrite_" + stepNo);
-            var recordChk = document.getElementById("testFlaskRecordCheckBox");
-
-            if (!$this.overwriteStepNo) {
-                recordChk.checked = true;
-                $this.recordMode = true;
-                $this.overwriteStepNo = stepNo;
-                $this.record($this.currentScenarioNo);
-
-                overwriteLink.innerHTML = "Stop";
-            }
-            else {
-                recordChk.checked = false;
-                $this.recordMode = false;
-                $this.overwriteStepNo = 0;
-                $this.record($this.currentScenarioNo);
-
-                overwriteLink.innerHTML = "Overwrite";
-            }
-        };
-
-        $this.editStep = function(stepNo) {
-            var textBox = document.getElementById("testFlaskStepName_" + stepNo);
-            textBox.readOnly = false;
-
-            var editActionsSpan = document.getElementById("testFlaskStepEditActions_" + stepNo);
-            editActionsSpan.style.display = 'inline';
-            var defaultActionsSpan = document.getElementById("testFlaskStepDefaultActions_" + stepNo);
-            defaultActionsSpan.style.display = 'none';
-        };
-
-        $this.saveStep = function(stepNo) {
-
-            var httpRequest = $this.prepareRequest(() => {
-                $this.cancelStep(stepNo);
-                $this.loadScenarios();
-            });
-
-            var stepName = document.getElementById("testFlaskStepName_" + stepNo).value;
-
-            httpRequest.open("POST", '@Url.Action("UpdateStep", "Assistant")', true);
-            httpRequest.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            httpRequest.send(`stepNo=${stepNo}&stepName=${stepName}`);
-        };
-
-        $this.cancelStep = function(stepNo) {
-            var textBox = document.getElementById("testFlaskStepName_" + stepNo);
-            textBox.readOnly = true;
-
-            var defaultActionsSpan = document.getElementById("testFlaskStepDefaultActions_" + stepNo);
-            defaultActionsSpan.style.display = 'inline';
-            var editActionsSpan = document.getElementById("testFlaskStepEditActions_" + stepNo);
-            editActionsSpan.style.display = 'none';
-        };
-
-        $this.manageScenario = function() {
-            var elem = document.getElementById("testFlaskScenariosDropdown");
-            var scenarioNo = elem.value;
-            var scenarioManagerUrl = '@Model.ManagerUrl' + '/project/' + '@Model.ProjectKey' + '/scenario/' + scenarioNo;
-            window.open(scenarioManagerUrl);
-        };
-
-        $this.refresh = function() {
-            $this.loadScenarios();
-        };
-
-        $this.initialize();
-    })(testFlask);
-
-</script>
+        });
+    </script>
+}

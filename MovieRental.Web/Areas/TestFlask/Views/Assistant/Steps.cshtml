@@ -1,6 +1,6 @@
 ﻿@model TestFlask.Assistant.Models.StepsViewModel
-<div class="steps-container">
-    <div class="steps-header">
+<div class="test-flask-steps-container">
+    <div class="test-flask-steps-header">
         <span style="margin-right:90px;">
             <strong>Steps</strong>
         </span>
@@ -8,13 +8,13 @@
             <input type="checkbox" style="margin-right:5px;position:relative;top:2px;" id="testFlaskRecordCheckBox" onchange="testFlask.record(@Model.Context.CurrentScenarioNo)" />Record
         </label>
     </div>
-    <div class="steps-body">
+    <div class="test-flask-steps-body">
         @{
             if (Model.Steps.Any())
             {
                 foreach (var step in Model.Steps.OrderByDescending(s => s.StepNo))
                 {
-                    <div class="step-item">
+                    <div class="test-flask-step-item">
                         <div>
                             <strong>#@step.StepNo</strong>
                             <input type="text" id="testFlaskStepName_@step.StepNo" value="@step.StepName" readonly="readonly" />
@@ -27,7 +27,7 @@
                                 <a href="javascript:void(0)" title="Cancel" onclick="testFlask.cancelStep(@step.StepNo)">Cancel</a>
                             </span>
                         </div>
-                        <div class="step-date">@step.CreatedOn.ToString("MM/dd/yyyy HH:mm:ss")</div>
+                        <div class="test-flask-step-date">@step.CreatedOn.ToString("MM/dd/yyyy HH:mm:ss")</div>
                     </div>
                 }
             }
