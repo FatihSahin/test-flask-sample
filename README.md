@@ -28,8 +28,8 @@ TestFlask examples, docs and wikis will be based on that sample service solution
 
 *   A TestFlask ready service (before and after) diagram is shown below.
 
-    ![alt text](Docs\withoutTestFlask.png "without TestFlask")
-    ![alt text](Docs\withTestFlask.png "with TestFlask")
+    ![withoutTestFlask](Docs/withoutTestFlask.png "without TestFlask")
+    ![withTestFlask](Docs/withTestFlask.png "with TestFlask")
 
 *   You can also use [SoapUI](https://www.soapui.org/) project inside the SoapUI folder to trigger some operations on the service to record or play them on TestFlask. 
 
@@ -41,7 +41,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     * To start a TestFlask Manager, see [test-flask-web](http://github.com/FatihSahin/test-flask-web) project
     * Define a project inside TestFlask Manager app with a proper project key.
 
-    ![alt text](Docs\createProject.png "create TestFlask project")
+    ![createProject](Docs/createProject.png "create TestFlask project")
 
 ## Sample service configuration
 
@@ -142,24 +142,24 @@ TestFlask examples, docs and wikis will be based on that sample service solution
 
         * Using TestFlask Assistant inside your ASP.NET MVC App
 
-            ![alt text](Docs\assistant_1.png)
+            ![assistant1](Docs/assistant_1.png)
 
         * Observing and editing scenario details and steps
 
-            ![alt text](Docs\manager_1.png)
+            ![manager1](Docs/manager_1.png)
 
         * Diving deep into recorded step with call tree and see request, response objects
 
-            ![alt text](Docs\manager_2.png)
+            ![manager2](Docs/manager_2.png)
 
         * Preparing an assertion for asserting steps.
 
-            ![alt text](Docs\manager_3.png)
+            ![manager3](Docs/manager_3.png)
 
         * You can also see recorded raw requests which triggered that step.
 
-             ![alt text](Docs\manager_4.png)
+             ![manager4](Docs/manager_4.png)
 
         * Using TestFlask Assistant, you can assert the whole scenario (run all step assertions)
 
-            ![alt text](Docs\manager_5.png)
+            ![manager5](Docs/manager_5.png)
