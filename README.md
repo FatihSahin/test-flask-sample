@@ -1,20 +1,20 @@
 # test-flask-sample (MovieRental)
 
-This repo contains a sample web app (MovieRental.Web) and a sample WCF service solution (MovieRental.Service)  that is weaved with [TestFlask](http://https://github.com/FatihSahin/test-flask) fody addin. 
+This repo contains a sample web app (MovieRental.Web) and a sample WCF service solution (MovieRental.Service)  that is weaved with [TestFlask](https://github.com/FatihSahin/test-flask) fody addin. 
 
-TestFlask examples, docs and wikis will be based on that sample service solution as much as possible. It is a fictional movie rental service that exposes information about movies and their stock state. There is nothing special about the service operations. (AddMovie, DeleteMovie, RentMovie). To demonstrate TestFlask, service and web ui will be kept simple and dummy.
+TestFlask examples, docs and wikis will be based on that sample service solution as much as possible. It is a fictional movie rental service that exposes information about movies and their stock state. There is nothing special about the service operations. (AddMovie, DeleteMovie, RentMovie). To demonstrate TestFlask, service and web ui will be kept simple.
 
 ## How to build MovieRental for TestFlask 
 
-* This sample solution uses TestFlask nuget packages, however I have not deployed them to nuget.org yet. In order to create TestFlask nuget packages, clone [test-flask](http://https://github.com/FatihSahin/test-flask) repo
+* This sample solution uses TestFlask nuget packages, however I have not deployed them to nuget.org yet. In order to create TestFlask nuget packages, clone [test-flask](https://github.com/FatihSahin/test-flask) repo
 
-* Build [test-flask](http://https://github.com/FatihSahin/test-flask) solution first, after that you need to prepare three nuget packages
+* Build [test-flask](https://github.com/FatihSahin/test-flask) solution first, after that you need to prepare three nuget packages
     * You should create a folder in your machine to use it as nuget local repo. Configure your VS to use that local nuget repo as well.
     * Copy TestFlaskAddin.Fody package to your local nuget repo folder (This package will already be prepared inside NugetBuild folder when you properly build test-flask solution)
     * Open TestFlask.Aspects folder in command prompt and run "nuget pack". Copy TestFlask.Aspects.nupkg to your local nuget repo folder.
     * Open TestFlask.Assistant folder and again run "nuget pack". Copy TestFlask.Assistant package to your local nuget repo as well.
 
-* After preparing packages, try to build MovieRental projects. An annoying dll locking occurs while weaving (hoping to solve that issue) and building solution, therefore try to build MovieRental projects in that order
+* After preparing packages, try to build MovieRental projects. An annoying dll locking occurs while weaving (hoping to solve that issue) and building solution, therefore try to build MovieRental projects in the following order
 
     * MovieRental.Models
     * MovieRental.Business
@@ -24,7 +24,90 @@ TestFlask examples, docs and wikis will be based on that sample service solution
 ## What happens behind the scenes?
 
 *   If you hopefully managed to build MovieRental solution, there are some interesting things to observe. Open up your MovieRental.Service bin folder. Delete if any MovieRental.Service.pdb file exists to make sure that decompilers should decompile your assembly from scratch. Decompile your MovieRental.Service.dll with a decompiler tool like (dotPeek, justDecompile, ILSpy or ildasm etc.).
-* You should see your methods that are marked with [Playback] attribute are now weaved similar to the following structure. Please observe that actual class files does not contain this kind of code. It is the real benefit and power of TestFlask that it can manipulate your any backend method and make it mockable with a simple [Playback] attribute.
+
+* You should see your methods that are marked with [Playback] attribute are now weaved with the following structure. 
+
+    * Ex: RentalManager.cs (original)
+
+    ```csharp
+    namespace MovieRental.Business
+    {
+        public class RentalManager
+        {
+            private readonly MovieInfoService infoService;
+            private readonly MovieStockService stockService;
+
+            public RentalManager(MovieInfoService infoService, MovieStockService stockService)
+            {
+                this.infoService = infoService;
+                this.stockService = stockService;
+            }
+
+            [Playback(typeof(MovieNameIdentifier))]
+            public Movie GetMovieWithStockCount(string name)
+            {
+                //simulate a delay
+                Thread.Sleep(new Random().Next(500, 2000));
+                //gets movie info from info service
+                var movie = infoService.GetMovieInfo(name);
+                //obtain stock info from stock service
+                movie.StockCount = stockService.GetStock(name);
+                
+                return movie;
+            }
+        }
+    }
+    ```
+
+    * RentalManager.cs (manipuulated with TestFlask) 
+
+    ```csharp
+    namespace MovieRental.Business
+    {
+        public class RentalManager
+        {
+            private readonly MovieInfoService infoService;
+            private readonly MovieStockService stockService;
+
+            public RentalManager(MovieInfoService infoService, MovieStockService stockService)
+            {
+                this.infoService = infoService;
+                this.stockService = stockService;
+            }
+
+            [Playback(typeof (MovieNameIdentifier), null)]
+            public Movie GetMovieWithStockCount(string name)
+            {
+                Player<string, Movie> player = new Player<string, Movie>("MovieRental.Models.Movie MovieRental.Business.RentalManager::GetMovieWithStockCount(System.String)", (IRequestIdentifier<string>) new MovieNameIdentifier(), (IResponseIdentifier<Movie>) null);
+
+                player.StartInvocation(name);
+
+                switch (player.DetermineTestMode(name))
+                {
+                    case TestModes.NoMock:
+                        return player.CallOriginal(name, new Func<string, Movie>(this.GetMovieWithStockCount__Original));
+                    case TestModes.Record:
+                        return player.Record(name, new Func<string, Movie>(this.GetMovieWithStockCount__Original));
+                    case TestModes.Play:
+                        return player.Play(name);
+                    default:
+                        return (Movie) null;
+                }
+            }
+
+            public Movie GetMovieWithStockCount__Original(string name)
+            {
+                Thread.Sleep(new Random().Next(500, 2000));
+                Movie movieInfo = this.infoService.GetMovieInfo(name);
+                movieInfo.StockCount = this.stockService.GetStock(name);
+                return movieInfo;
+            }
+        }
+    }
+    ```
+    Please notice that TestFlask auto-wraps your original method call with playback and recording functionality.
+
+    This happens when you build your project with Visual Studio. It is the real benefit and power of TestFlask that it can manipulate your any backend method and make it mockable with a simple [Playback] attribute. Thanks to wonderful [Fody](https://github.com/Fody/Fody) library for simplifying .net assembly weaving. 
 
 *   A TestFlask ready service (before and after) diagram is shown below.
 
@@ -138,7 +221,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
         * Set record mode off
         * Examine your scenario and steps and all invocation tree using TestFlask Manager
 
-    * Here are some screenshots. (I promise I will remove them right after I prepare a YouTube video)
+    * Here are some screenshots. (I am considering to record a YouTube video to demonstrate the whole process)
 
         * Using TestFlask Assistant inside your ASP.NET MVC App
 
