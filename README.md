@@ -41,7 +41,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     * To start a TestFlask Manager, see [test-flask-web](http://github.com/FatihSahin/test-flask-web) project
     * Define a project inside TestFlask Manager app with a proper project key.
 
-    ![createProject](Docs/createProject.png "create TestFlask project")
+    ![createProject](Docs/createProject.png)
 
 ## Sample service configuration
 
