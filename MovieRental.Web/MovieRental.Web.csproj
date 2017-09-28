@@ -51,8 +51,8 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>ReferencedAssemblies\MongoDB.Bson.dll</HintPath>
+      <HintPath>..\packages\TestFlask.Assistant.1.0.0\lib\net452\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -63,6 +63,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -113,9 +114,13 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="TestFlask.Assistant, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TestFlask.Assistant.1.0.0\lib\net452\TestFlask.Assistant.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="TestFlask.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>ReferencedAssemblies\TestFlask.Models.dll</HintPath>
+      <HintPath>..\packages\TestFlask.Assistant.1.0.0\lib\net452\TestFlask.Models.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -143,16 +148,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\TestFlask\Controllers\AssistantController.cs" />
-    <Compile Include="Areas\TestFlask\Models\StepsViewModel.cs" />
-    <Compile Include="Areas\TestFlask\Models\TestFlaskAssistantContext.cs" />
-    <Compile Include="Areas\TestFlask\TestFlaskApi.cs" />
     <Compile Include="Areas\TestFlask\TestFlaskAreaRegistration.cs" />
-    <Compile Include="Areas\TestFlask\WcfEndpointBehavior.cs" />
-    <Compile Include="Areas\TestFlask\WcfEndpointBehaviorExtensionElement.cs" />
-    <Compile Include="Areas\TestFlask\WcfMessageInspector.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
-    <Compile Include="Areas\TestFlask\TestFlaskAssistantConfig.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -177,8 +175,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\MovieRental.Models.Movie.datasource" />
     <Content Include="Areas\TestFlask\Views\web.config" />
-    <Content Include="Areas\TestFlask\Views\Assistant\Index.cshtml" />
     <Content Include="Areas\TestFlask\Views\Assistant\Steps.cshtml" />
+    <Content Include="Areas\TestFlask\Views\Assistant\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -202,7 +200,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -261,7 +261,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51302</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
