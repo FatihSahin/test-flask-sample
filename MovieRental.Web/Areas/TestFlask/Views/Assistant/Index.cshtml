@@ -50,6 +50,7 @@
     </div>
     <script src="~/Scripts/testFlask.js"></script>
     <script type="text/javascript">
+        @{ string controllerName = "Assistant"; } //modify controller name if you changed test flask area default controller name
         //initialize testFlask with options
         testFlask.initialize({
             recordMode: @Model.RecordMode.ToString().ToLower(),
@@ -57,12 +58,12 @@
             overwriteStepNo: @Model.OverwriteStepNo,
             managerScenarioBaseUrl: '@Model.ManagerUrl' + '/project/' + '@Model.ProjectKey' + '/scenario/',
             actions: {
-                toggleView: '@Url.Action("ToggleView", "Assistant")',
-                createNewScenario: '@Url.Action("CreateNewScenario", "Assistant")',
-                getScenarios: '@Url.Action("GetScenarios", "Assistant")',
-                steps: '@Url.Action("Steps", "Assistant")',
-                record: '@Url.Action("Record", "Assistant")',
-                updateStep: '@Url.Action("UpdateStep", "Assistant")'
+                toggleView: '@Url.Action("ToggleView", controllerName)',
+                createNewScenario: '@Url.Action("CreateNewScenario", controllerName)',
+                getScenarios: '@Url.Action("GetScenarios", controllerName)',
+                steps: '@Url.Action("Steps", controllerName)',
+                record: '@Url.Action("Record", controllerName)',
+                updateStep: '@Url.Action("UpdateStep", controllerName)'
             }
         });
     </script>
