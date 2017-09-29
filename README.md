@@ -27,82 +27,52 @@ TestFlask examples, docs and wikis will be based on that sample service solution
 
 * You should see your methods that are marked with [Playback] attribute are now weaved with the following structure. 
 
-    * Ex: RentalManager.cs (original)
+    * Original GetMovieWithStockCount method
 
     ```csharp
-    namespace MovieRental.Business
+    [Playback(typeof(MovieNameIdentifier))]
+    public Movie GetMovieWithStockCount(string name)
     {
-        public class RentalManager
-        {
-            private readonly MovieInfoService infoService;
-            private readonly MovieStockService stockService;
-
-            public RentalManager(MovieInfoService infoService, MovieStockService stockService)
-            {
-                this.infoService = infoService;
-                this.stockService = stockService;
-            }
-
-            [Playback(typeof(MovieNameIdentifier))]
-            public Movie GetMovieWithStockCount(string name)
-            {
-                //simulate a delay
-                Thread.Sleep(new Random().Next(500, 2000));
-                //gets movie info from info service
-                var movie = infoService.GetMovieInfo(name);
-                //obtain stock info from stock service
-                movie.StockCount = stockService.GetStock(name);
-                
-                return movie;
-            }
-        }
+        //simulate a delay
+        Thread.Sleep(new Random().Next(500, 2000));
+        //gets movie info from info service
+        var movie = infoService.GetMovieInfo(name);
+        //obtain stock info from stock service
+        movie.StockCount = stockService.GetStock(name);
+        
+        return movie;
     }
     ```
 
-    * RentalManager.cs (manipuulated with TestFlask) 
+    * Weaved GetMovieWithStockCount method
 
-    ```csharp
-    namespace MovieRental.Business
+    ```csharp   
+    [Playback(typeof (MovieNameIdentifier), null)]
+    public Movie GetMovieWithStockCount(string name)
     {
-        public class RentalManager
+        Player<string, Movie> player = new Player<string, Movie>("MovieRental.Models.Movie MovieRental.Business.RentalManager::GetMovieWithStockCount(System.String)", (IRequestIdentifier<string>) new MovieNameIdentifier(), (IResponseIdentifier<Movie>) null);
+
+        player.StartInvocation(name);
+
+        switch (player.DetermineTestMode(name))
         {
-            private readonly MovieInfoService infoService;
-            private readonly MovieStockService stockService;
-
-            public RentalManager(MovieInfoService infoService, MovieStockService stockService)
-            {
-                this.infoService = infoService;
-                this.stockService = stockService;
-            }
-
-            [Playback(typeof (MovieNameIdentifier), null)]
-            public Movie GetMovieWithStockCount(string name)
-            {
-                Player<string, Movie> player = new Player<string, Movie>("MovieRental.Models.Movie MovieRental.Business.RentalManager::GetMovieWithStockCount(System.String)", (IRequestIdentifier<string>) new MovieNameIdentifier(), (IResponseIdentifier<Movie>) null);
-
-                player.StartInvocation(name);
-
-                switch (player.DetermineTestMode(name))
-                {
-                    case TestModes.NoMock:
-                        return player.CallOriginal(name, new Func<string, Movie>(this.GetMovieWithStockCount__Original));
-                    case TestModes.Record:
-                        return player.Record(name, new Func<string, Movie>(this.GetMovieWithStockCount__Original));
-                    case TestModes.Play:
-                        return player.Play(name);
-                    default:
-                        return (Movie) null;
-                }
-            }
-
-            public Movie GetMovieWithStockCount__Original(string name)
-            {
-                Thread.Sleep(new Random().Next(500, 2000));
-                Movie movieInfo = this.infoService.GetMovieInfo(name);
-                movieInfo.StockCount = this.stockService.GetStock(name);
-                return movieInfo;
-            }
+            case TestModes.NoMock:
+                return player.CallOriginal(name, new Func<string, Movie>(this.GetMovieWithStockCount__Original));
+            case TestModes.Record:
+                return player.Record(name, new Func<string, Movie>(this.GetMovieWithStockCount__Original));
+            case TestModes.Play:
+                return player.Play(name);
+            default:
+                return (Movie) null;
         }
+    }
+
+    public Movie GetMovieWithStockCount__Original(string name)
+    {
+        Thread.Sleep(new Random().Next(500, 2000));
+        Movie movieInfo = this.infoService.GetMovieInfo(name);
+        movieInfo.StockCount = this.stockService.GetStock(name);
+        return movieInfo;
     }
     ```
     Please notice that TestFlask auto-wraps your original method call with playback and recording functionality.
@@ -146,7 +116,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
         ...
     </system.webServer>
     ```
-    * Enable Cors support in Global.asax (This is needed to support TestFlask Manager to be able to assert your scenarios)
+    * Enable Cors support in Global.asax (This is needed to support TestFlask Manager to be able to assert your scenarios by triggering your recorded steps with cross-site ajax calls)
     ```csharp
     protected void Application_BeginRequest(object sender, EventArgs e)
     {
@@ -243,6 +213,6 @@ TestFlask examples, docs and wikis will be based on that sample service solution
 
              ![manager4](Docs/manager_4.png)
 
-        * Using TestFlask Assistant, you can assert the whole scenario (run all step assertions)
+        * Using TestFlask Manager, you can assert the whole scenario (run all step assertions)
 
             ![manager5](Docs/manager_5.png)
