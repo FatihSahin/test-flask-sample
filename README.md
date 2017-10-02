@@ -1,20 +1,22 @@
 # test-flask-sample (MovieRental)
 
-This repo contains a sample web app (MovieRental.Web) and a sample WCF service solution (MovieRental.Service)  that is weaved with [TestFlask](https://github.com/FatihSahin/test-flask) fody addin. 
+This repo contains a sample web app (MovieRental.Web) and a sample WCF service solution (MovieRental.Service)  that is weaved with [TestFlask](https://github.com/FatihSahin/test-flask) Fody addin. 
 
 TestFlask examples, docs and wikis will be based on that sample service solution as much as possible. It is a fictional movie rental service that exposes information about movies and their stock state. There is nothing special about the service operations. (AddMovie, DeleteMovie, RentMovie). To demonstrate TestFlask, service and web ui will be kept simple.
 
 ## How to build MovieRental for TestFlask 
 
-* This sample solution uses TestFlask nuget packages, however I have not deployed them to nuget.org yet. In order to create TestFlask nuget packages, clone [test-flask](https://github.com/FatihSahin/test-flask) repo
+* This sample solution uses TestFlask nuget packages. However, I have not deployed them to nuget.org yet. In order to create TestFlask nuget packages, clone [test-flask](https://github.com/FatihSahin/test-flask) repo
 
-* Build [test-flask](https://github.com/FatihSahin/test-flask) solution first, after that you need to prepare three nuget packages
-    * You should create a folder in your machine to use it as nuget local repo. Configure your VS to use that local nuget repo as well.
-    * Copy TestFlaskAddin.Fody package to your local nuget repo folder (This package will already be prepared inside NugetBuild folder when you properly build test-flask solution)
-    * Open TestFlask.Aspects folder in command prompt and run "nuget pack". Copy TestFlask.Aspects.nupkg to your local nuget repo folder.
-    * Open TestFlask.Assistant folder and again run "nuget pack". Copy TestFlask.Assistant package to your local nuget repo as well.
+* Build [test-flask](https://github.com/FatihSahin/test-flask) solution first, after that you need to prepare three nuget packages. You should create a folder in your machine to use it as nuget local repo. Configure your VS to use that local nuget repo as well.
 
-* After preparing packages, try to build MovieRental projects. An annoying dll locking occurs while weaving (hoping to solve that issue) and building solution, therefore try to build MovieRental projects in the following order
+    1. Copy TestFlaskAddin.Fody package to your local nuget repo folder (This package will already be prepared inside NugetBuild folder when you properly build test-flask solution)
+
+    2. Open TestFlask.Aspects folder in command prompt and run "nuget pack". Copy TestFlask.Aspects.nupkg to your local nuget repo folder.
+
+    3. Open TestFlask.Assistant folder and again run "nuget pack". Copy TestFlask.Assistant package to your local nuget repo as well.
+
+* After preparing packages, try to build MovieRental projects. An annoying dll locking occurs while weaving (hoping to solve that issue) and building solution, therefore try to build MovieRental projects in the following order.
 
     * MovieRental.Models
     * MovieRental.Business
@@ -77,7 +79,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     ```
     Please notice that TestFlask auto-wraps your original method call with playback and recording functionality.
 
-    This happens when you build your project with Visual Studio. It is the real benefit and power of TestFlask that it can manipulate your any backend method and make it mockable with a simple [Playback] attribute. Thanks to wonderful [Fody](https://github.com/Fody/Fody) library for simplifying .net assembly weaving. 
+    This happens when you build your project with Visual Studio. This is the real benefit and power of TestFlask that it can manipulate your any backend method and make it mockable with a simple [Playback] attribute. Thanks to wonderful [Fody](https://github.com/Fody/Fody) library for simplifying .net assembly weaving. 
 
 *   A TestFlask ready service (before and after) diagram is shown below.
 
