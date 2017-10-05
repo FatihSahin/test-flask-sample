@@ -145,6 +145,18 @@ TestFlask examples, docs and wikis will be based on that sample service solution
 ## Sample web application configuration
 
 *   MovieRental.Web shows a proper TestFlask ready MVC app configuration. Here are the most important configurations
+
+    * Include render statement below inside your _Layout.html
+
+    ```csharp
+    @{ Html.RenderPartial("~/Areas/TestFlask/Views/TestFlaskAssistant/Index.cshtml", TestFlask.Assistant.Models.TestFlaskAssistantContext.Current); }
+    ```
+
+    * Include testFlask.css in your layout
+
+    ```html
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/testFlask.css")">
+    ```
     
     * Change your testFlaskAssistant config section with proper TestFlask.API host url, TestFlask Manager Url and your project key
     
