@@ -54,6 +54,12 @@ namespace MovieRental.Business.Integration
             return GetMovieInfo(movie.Name);
         }
 
+        [Playback]
+        public Movie GetRandomMovieInfo()
+        {
+            return GetMovieInfo(movies[new Random().Next(movies.Count)].Name);
+        }
+
         [Playback(typeof(MovieNameIdentifier))]
         public bool DeleteMovieInfo(string name)
         {

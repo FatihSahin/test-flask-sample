@@ -69,5 +69,23 @@ namespace MovieRental.Service
                 Movie = movie
             };
         }
+
+        [Playback]
+        public Movie RandomMovie()
+        {
+            return rentalMananger.GetRandomMovie();
+        }
+
+        [Playback]
+        public void ResetMovie(Movie movie)
+        {
+            rentalMananger.ResetMovie(movie.Name);
+        }
+
+        [Playback]
+        public void HealthCheck()
+        {
+            rentalMananger.CheckStatus();
+        }
     }
 }

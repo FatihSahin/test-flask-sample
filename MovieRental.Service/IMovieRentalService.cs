@@ -23,5 +23,17 @@ namespace MovieRental.Service
 
         [OperationContract]
         bool DeleteMovie(string name);
+
+        //An example of a no args function
+        [OperationContract]
+        Movie RandomMovie();
+
+        //An example of an action
+        [OperationContract]
+        void ResetMovie(Movie movie)
+
+        //An example of no args action
+        [OperationContract]
+        void HealthCheck();
     }
 }
