@@ -1,4 +1,4 @@
-# test-flask-sample (MovieRental)
+# MovieRental - TestFlask Sample App
 
 This repo contains a sample web app (MovieRental.Web) and a sample WCF service solution (MovieRental.Service)  that is weaved with [TestFlask](https://github.com/FatihSahin/test-flask) Fody addin. 
 
@@ -52,7 +52,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     [Playback(typeof (MovieNameIdentifier), null)]
     public Movie GetMovieWithStockCount(string name)
     {
-        Player<string, Movie> player = new Player<string, Movie>("MovieRental.Models.Movie MovieRental.Business.RentalManager::GetMovieWithStockCount(System.String)", (IRequestIdentifier<string>) new MovieNameIdentifier(), (IResponseIdentifier<Movie>) null);
+        FuncPlayer<string, Movie> player = new FuncPlayer<string, Movie>("MovieRental.Models.Movie MovieRental.Business.RentalManager::GetMovieWithStockCount(System.String)", (IRequestIdentifier<string>) new MovieNameIdentifier(), (IResponseIdentifier<Movie>) null);
 
         player.StartInvocation(name);
 
