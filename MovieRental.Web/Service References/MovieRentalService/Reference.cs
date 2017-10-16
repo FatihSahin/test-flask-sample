@@ -117,6 +117,24 @@ namespace MovieRental.Web.MovieRentalService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMovieRentalService/DeleteMovie", ReplyAction="http://tempuri.org/IMovieRentalService/DeleteMovieResponse")]
         System.Threading.Tasks.Task<bool> DeleteMovieAsync(string name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMovieRentalService/RandomMovie", ReplyAction="http://tempuri.org/IMovieRentalService/RandomMovieResponse")]
+        MovieRental.Models.Movie RandomMovie();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMovieRentalService/RandomMovie", ReplyAction="http://tempuri.org/IMovieRentalService/RandomMovieResponse")]
+        System.Threading.Tasks.Task<MovieRental.Models.Movie> RandomMovieAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMovieRentalService/ResetMovie", ReplyAction="http://tempuri.org/IMovieRentalService/ResetMovieResponse")]
+        void ResetMovie(MovieRental.Models.Movie movie);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMovieRentalService/ResetMovie", ReplyAction="http://tempuri.org/IMovieRentalService/ResetMovieResponse")]
+        System.Threading.Tasks.Task ResetMovieAsync(MovieRental.Models.Movie movie);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMovieRentalService/HealthCheck", ReplyAction="http://tempuri.org/IMovieRentalService/HealthCheckResponse")]
+        void HealthCheck();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMovieRentalService/HealthCheck", ReplyAction="http://tempuri.org/IMovieRentalService/HealthCheckResponse")]
+        System.Threading.Tasks.Task HealthCheckAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -176,6 +194,30 @@ namespace MovieRental.Web.MovieRentalService {
         
         public System.Threading.Tasks.Task<bool> DeleteMovieAsync(string name) {
             return base.Channel.DeleteMovieAsync(name);
+        }
+        
+        public MovieRental.Models.Movie RandomMovie() {
+            return base.Channel.RandomMovie();
+        }
+        
+        public System.Threading.Tasks.Task<MovieRental.Models.Movie> RandomMovieAsync() {
+            return base.Channel.RandomMovieAsync();
+        }
+        
+        public void ResetMovie(MovieRental.Models.Movie movie) {
+            base.Channel.ResetMovie(movie);
+        }
+        
+        public System.Threading.Tasks.Task ResetMovieAsync(MovieRental.Models.Movie movie) {
+            return base.Channel.ResetMovieAsync(movie);
+        }
+        
+        public void HealthCheck() {
+            base.Channel.HealthCheck();
+        }
+        
+        public System.Threading.Tasks.Task HealthCheckAsync() {
+            return base.Channel.HealthCheckAsync();
         }
     }
 }

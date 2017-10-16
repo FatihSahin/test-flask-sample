@@ -75,5 +75,37 @@ namespace MovieRental.Web.Controllers
                 return View();
             }
         }
+
+        public ActionResult Reset()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Reset(Movie movie)
+        {
+            try
+            {
+                serviceClient.ResetMovie(movie);
+
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult GetRandom()
+        {
+            var movie = serviceClient.RandomMovie();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult HealthCheck()
+        {
+            serviceClient.HealthCheck();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

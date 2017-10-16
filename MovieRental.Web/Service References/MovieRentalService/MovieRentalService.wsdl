@@ -32,6 +32,24 @@
   <wsdl:message name="IMovieRentalService_DeleteMovie_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteMovieResponse" />
   </wsdl:message>
+  <wsdl:message name="IMovieRentalService_RandomMovie_InputMessage">
+    <wsdl:part name="parameters" element="tns:RandomMovie" />
+  </wsdl:message>
+  <wsdl:message name="IMovieRentalService_RandomMovie_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RandomMovieResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMovieRentalService_ResetMovie_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetMovie" />
+  </wsdl:message>
+  <wsdl:message name="IMovieRentalService_ResetMovie_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetMovieResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMovieRentalService_HealthCheck_InputMessage">
+    <wsdl:part name="parameters" element="tns:HealthCheck" />
+  </wsdl:message>
+  <wsdl:message name="IMovieRentalService_HealthCheck_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HealthCheckResponse" />
+  </wsdl:message>
   <wsdl:portType name="IMovieRentalService">
     <wsdl:operation name="GetMovie">
       <wsdl:input wsaw:Action="http://tempuri.org/IMovieRentalService/GetMovie" message="tns:IMovieRentalService_GetMovie_InputMessage" />
@@ -48,6 +66,18 @@
     <wsdl:operation name="DeleteMovie">
       <wsdl:input wsaw:Action="http://tempuri.org/IMovieRentalService/DeleteMovie" message="tns:IMovieRentalService_DeleteMovie_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMovieRentalService/DeleteMovieResponse" message="tns:IMovieRentalService_DeleteMovie_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RandomMovie">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMovieRentalService/RandomMovie" message="tns:IMovieRentalService_RandomMovie_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMovieRentalService/RandomMovieResponse" message="tns:IMovieRentalService_RandomMovie_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetMovie">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMovieRentalService/ResetMovie" message="tns:IMovieRentalService_ResetMovie_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMovieRentalService/ResetMovieResponse" message="tns:IMovieRentalService_ResetMovie_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HealthCheck">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMovieRentalService/HealthCheck" message="tns:IMovieRentalService_HealthCheck_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMovieRentalService/HealthCheckResponse" message="tns:IMovieRentalService_HealthCheck_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMovieRentalService" type="tns:IMovieRentalService">
@@ -81,6 +111,33 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteMovie">
       <soap:operation soapAction="http://tempuri.org/IMovieRentalService/DeleteMovie" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RandomMovie">
+      <soap:operation soapAction="http://tempuri.org/IMovieRentalService/RandomMovie" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetMovie">
+      <soap:operation soapAction="http://tempuri.org/IMovieRentalService/ResetMovie" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="HealthCheck">
+      <soap:operation soapAction="http://tempuri.org/IMovieRentalService/HealthCheck" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -222,6 +222,7 @@
     <Content Include="Views\Movie\Add.cshtml" />
     <Content Include="Views\Movie\Rent.cshtml" />
     <Content Include="Views\Movie\Delete.cshtml" />
+    <Content Include="Views\Movie\Reset.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

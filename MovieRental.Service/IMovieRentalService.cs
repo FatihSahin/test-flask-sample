@@ -30,7 +30,7 @@ namespace MovieRental.Service
 
         //An example of an action
         [OperationContract]
-        void ResetMovie(Movie movie)
+        void ResetMovie(Movie movie);
 
         //An example of no args action
         [OperationContract]
