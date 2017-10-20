@@ -116,7 +116,6 @@
     </Reference>
     <Reference Include="TestFlask.Assistant, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TestFlask.Assistant.1.0.0\lib\net452\TestFlask.Assistant.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="TestFlask.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TestFlask.Assistant.1.0.0\lib\net452\TestFlask.Models.dll</HintPath>
@@ -147,7 +146,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\TestFlask\Controllers\AssistantController.cs" />
+    <Compile Include="Areas\TestFlask\Controllers\TestFlaskAssistantController.cs" />
     <Compile Include="Areas\TestFlask\TestFlaskAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
@@ -174,9 +173,11 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\MovieRental.Models.Movie.datasource" />
-    <Content Include="Areas\TestFlask\Views\web.config" />
     <Content Include="Areas\TestFlask\Views\Assistant\Steps.cshtml" />
     <Content Include="Areas\TestFlask\Views\Assistant\Index.cshtml" />
+    <Content Include="Areas\TestFlask\Views\web.config" />
+    <Content Include="Areas\TestFlask\Views\TestFlaskAssistant\Steps.cshtml" />
+    <Content Include="Areas\TestFlask\Views\TestFlaskAssistant\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

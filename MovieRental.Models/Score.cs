@@ -17,6 +17,7 @@ namespace MovieRental.Models
     public enum RatingSource
     {
         Imdb,
-        RottenTomatoes
+        RottenTomatoes,
+        ForgottenPotatoes
     }
 }

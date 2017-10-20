@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieRental.Models", "MovieRental.Models\MovieRental.Models.csproj", "{9B703502-25BB-4A35-8DBB-AF4F5F2AED39}"
 EndProject
@@ -17,6 +17,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{9167AE66-6E92-459D-9EE3-73A3A7B00F34}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{E9F60B74-FC33-4DBE-8BDC-B1EBEBF71900}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForgottenPotatoes.ScoreAPI", "ForgottenPotatoes.ScoreAPI\ForgottenPotatoes.ScoreAPI.csproj", "{AAC15ECE-2356-4FAD-B820-C011D118F424}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,6 +42,10 @@ Global
 		{24A192EF-7397-4592-B723-2D4A98BECB9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24A192EF-7397-4592-B723-2D4A98BECB9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24A192EF-7397-4592-B723-2D4A98BECB9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAC15ECE-2356-4FAD-B820-C011D118F424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAC15ECE-2356-4FAD-B820-C011D118F424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAC15ECE-2356-4FAD-B820-C011D118F424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAC15ECE-2356-4FAD-B820-C011D118F424}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,5 +55,9 @@ Global
 		{6C49A85D-F1BE-4124-97C5-96366C0EC836} = {9167AE66-6E92-459D-9EE3-73A3A7B00F34}
 		{AB5E56E5-86B0-4C5F-B3A2-C05C92FCD773} = {9167AE66-6E92-459D-9EE3-73A3A7B00F34}
 		{24A192EF-7397-4592-B723-2D4A98BECB9E} = {E9F60B74-FC33-4DBE-8BDC-B1EBEBF71900}
+		{AAC15ECE-2356-4FAD-B820-C011D118F424} = {9167AE66-6E92-459D-9EE3-73A3A7B00F34}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3E0082D5-ABCA-4E1F-A42D-14BC793162FA}
 	EndGlobalSection
 EndGlobal
