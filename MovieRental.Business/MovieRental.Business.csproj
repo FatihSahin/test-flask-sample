@@ -60,6 +60,10 @@
       <HintPath>..\packages\TestFlask.Aspects.1.0.0\lib\net452\TestFlask.Aspects.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="TestFlask.Assistant.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TestFlask.Assistant.Core.1.0.0\lib\net452\TestFlask.Assistant.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="TestFlask.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TestFlask.Aspects.1.0.0\lib\net452\TestFlask.Models.dll</HintPath>
       <Private>True</Private>

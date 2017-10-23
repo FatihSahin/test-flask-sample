@@ -5,23 +5,23 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Mvc;
 using System.Web.SessionState;
-using TestFlask.Assistant.ApiClient;
-using TestFlask.Assistant.Config;
-using TestFlask.Assistant.Models;
+using TestFlask.Assistant.Mvc.ApiClient;
+using TestFlask.Assistant.Core.Config;
 using TestFlask.Models.Entity;
+using TestFlask.Assistant.Mvc.Models;
 
 namespace TestFlask.Assistant.Controllers
 {
     public class TestFlaskAssistantController : Controller
     {
         private readonly TestFlaskAssistantConfig config;
-        private readonly TestFlaskAssistantContext context;
+        private readonly AssistantSessionContext context;
         private readonly TestFlaskApi api;
 
         public TestFlaskAssistantController()
         {
             config = TestFlaskAssistantConfig.Instance;
-            context = TestFlaskAssistantContext.Current;
+            context = AssistantSessionContext.Current;
             api = new TestFlaskApi();
         }
 
@@ -84,7 +84,7 @@ namespace TestFlask.Assistant.Controllers
         [HttpPost]
         public JsonResult Record(int scenarioNo, int stepNo, bool record)
         {
-            context.RecordMode = record;
+            context.IsInRecordMode = record;
             context.OverwriteStepNo = stepNo;
             return Json(record);
         }

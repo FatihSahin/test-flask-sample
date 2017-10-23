@@ -51,7 +51,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TestFlask.Assistant.1.0.0\lib\net452\MongoDB.Bson.dll</HintPath>
+      <HintPath>..\packages\TestFlask.Assistant.Mvc.1.0.0\lib\net452\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -114,11 +114,16 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="TestFlask.Assistant, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TestFlask.Assistant.1.0.0\lib\net452\TestFlask.Assistant.dll</HintPath>
+    <Reference Include="TestFlask.Assistant.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TestFlask.Assistant.Core.1.0.0\lib\net452\TestFlask.Assistant.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TestFlask.Assistant.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TestFlask.Assistant.Mvc.1.0.0\lib\net452\TestFlask.Assistant.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="TestFlask.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\TestFlask.Assistant.1.0.0\lib\net452\TestFlask.Models.dll</HintPath>
+      <HintPath>..\packages\TestFlask.Assistant.Mvc.1.0.0\lib\net452\TestFlask.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease">
@@ -173,11 +178,9 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Properties\DataSources\MovieRental.Models.Movie.datasource" />
-    <Content Include="Areas\TestFlask\Views\Assistant\Steps.cshtml" />
-    <Content Include="Areas\TestFlask\Views\Assistant\Index.cshtml" />
-    <Content Include="Areas\TestFlask\Views\web.config" />
     <Content Include="Areas\TestFlask\Views\TestFlaskAssistant\Steps.cshtml" />
     <Content Include="Areas\TestFlask\Views\TestFlaskAssistant\Index.cshtml" />
+    <Content Include="Areas\TestFlask\Views\web.config" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
