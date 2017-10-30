@@ -28,6 +28,7 @@ namespace MovieRental.Business.Integration
             //simulate a delay
             Thread.Sleep(new Random().Next(500, 2000));
 
+            
             if (name.Length % 2 == 0) //to demonstrate a inner score api to pass incoming TestFlask headers, 
                 //if movie name length is odd, fetch score from our ForgottenPotatoes API
             {

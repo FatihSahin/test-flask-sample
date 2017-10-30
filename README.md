@@ -6,7 +6,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
 
 ## How to build MovieRental for TestFlask 
 
-* This sample solution uses TestFlask nuget packages. However, I have not deployed them to nuget.org yet. In order to create TestFlask nuget packages, clone [test-flask](https://github.com/FatihSahin/test-flask) repo
+* This sample solution uses four TestFlask nuget packages. However, I have not deployed them to nuget.org yet. In order to create TestFlask nuget packages, clone [test-flask](https://github.com/FatihSahin/test-flask) repo
 
 * Build [test-flask](https://github.com/FatihSahin/test-flask) solution first, after that you need to prepare three nuget packages. You should create a folder in your machine to use it as nuget local repo. Configure your VS to use that local nuget repo as well.
 
@@ -14,14 +14,11 @@ TestFlask examples, docs and wikis will be based on that sample service solution
 
     2. Open TestFlask.Aspects folder in command prompt and run "nuget pack". Copy TestFlask.Aspects.nupkg to your local nuget repo folder.
 
-    3. Open TestFlask.Assistant folder and again run "nuget pack". Copy TestFlask.Assistant package to your local nuget repo as well.
+    3. Open TestFlask.Assistant.Core folder and again run "nuget pack". Copy TestFlask.Assistant.Core package to your local nuget repo.
 
-* After preparing packages, try to build MovieRental projects. An annoying dll locking occurs while weaving (hoping to solve that issue) and building solution, therefore try to build MovieRental projects in the following order.
+    4. Open TestFlask.Assistant.Mvc folder and again run "nuget pack". Copy TestFlask.Assistant.Mvc package to your local nuget repo as well.
 
-    * MovieRental.Models
-    * MovieRental.Business
-    * MovieRental.Service
-    * MovieRental.Web
+* After preparing packages, build MovieRental solution. If you come across a problem that says MS build could not copy some dlls to desired folders, kill MSBuild.exe processes that are open with Task Manager, and after that try to build solution again.
 
 ## What happens behind the scenes?
 
@@ -135,13 +132,53 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     }
     ```
 
-    * Finally change your testFlask config section with proper TestFlask.API host url and a project key
+    * Change your testFlask config section with proper TestFlask.API host url and a project key
     ```xml
     <testFlask>
         <api url="http://localhost:12079" />
         <project key="MovieRental" />
     </testFlask>
     ```
+
+    * Finally, TestFlask.Assistant.Core package has also ability to forward TestFlask headers to support recording cross service/api calls into a single session. Inside the sample you will see ForgottenPotatoes.ScoreAPI which is an internal scoring api used inside the MovieRental company. MovieRental.Service calls this API whenever a Movie score is requested. To enable header forwarding to other TestFlask ready services or APIs, your backend service which calls other services should be configured with the following
+
+    ```xml
+      <testFlaskAssistant enabled="true"></testFlaskAssistant>
+    ```
+
+    *   As it is in this sample, if you forward your headers to an inner Web API, you must create your api client with TestFlaskMessageHandler.
+
+    ```csharp
+     HttpClient httpClient = HttpClientFactory.Create(new TestFlaskMessageHandler());
+    ```
+    
+    *   For a different scenario, if you need to forward your headers to an inner WCF Service, there is a WCF extension that does that. You should enable this configuration on the caller not on the callee. You do not need to do this in MovieRental.Service because it calls a Web API, not another WCF service.
+
+    ```xml
+        <system.serviceModel>
+            <extensions>
+                <behaviorExtensions>
+                    <add name="testFlaskAssistantForwardingEndpointBehavior" type="TestFlask.Assistant.Core.WcfExtensions.WcfEndpointBehaviorExtensionElement, TestFlask.Assistant, PublicKeyToken=null, Version=1.0.0.0" />
+                </behaviorExtensions>
+            </extensions>
+            <behaviors>
+                <endpointBehaviors>
+                    <behavior name="withTestFlaskAssistantForwardingEndpointBehavior">
+                    <testFlaskAssistantForwardingEndpointBehavior />
+                    </behavior>
+                </endpointBehaviors>
+            </behaviors>
+            <bindings>
+                <basicHttpBinding>
+                    <binding name="BasicHttpBinding_IMyInnerService" />
+                </basicHttpBinding>
+            </bindings>
+            <client>
+                <endpoint address="http://localhost:23232/MyInnerService.svc" behaviorConfiguration="withTestFlaskAssistantForwardingEndpointBehavior" binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IMyInnerService" contract="MyInnerService.IMyInnerService" name="BasicHttpBinding_IMyInnerService" />
+            </client>
+        </system.serviceModel>
+    ```
+
 ## Sample web application configuration
 
 *   MovieRental.Web shows a proper TestFlask ready MVC app configuration. Here are the most important configurations
@@ -174,7 +211,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     <system.serviceModel>
         <extensions>
             <behaviorExtensions>
-                <add name="testFlaskAssistantEndpointBehavior" type="TestFlask.Assistant.WcfExtensions.WcfEndpointBehaviorExtensionElement, TestFlask.Assistant, PublicKeyToken=null, Version=1.0.0.0" />
+                <add name="testFlaskAssistantEndpointBehavior" type="TestFlask.Assistant.Mvc.WcfExtensions.WcfEndpointBehaviorExtensionElement, TestFlask.Assistant.Mvc, PublicKeyToken=null, Version=1.0.0.0" />
             </behaviorExtensions>
         </extensions>
         <behaviors>
