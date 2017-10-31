@@ -12,7 +12,7 @@ namespace MovieRental.Business.Integration
 {
     public class MovieInfoService
     {
-        private string[] directors = new string[] { "Guy Ritchie", "Quentin Tarantino", "Steven Spielberg", "Client Eastwood", "Christopher Nolan" };
+        private string[] directors = new string[] { "Guy Ritchie", "Quentin Tarantino", "Steven Spielberg", "Clint Eastwood", "Christopher Nolan" };
 
         private static List<Movie> movies;
 
@@ -57,7 +57,11 @@ namespace MovieRental.Business.Integration
         [Playback]
         public Movie GetRandomMovieInfo()
         {
-            return GetMovieInfo(movies[new Random().Next(movies.Count)].Name);
+            var movieName = movies[new Random().Next(movies.Count)].Name;
+            var movieInfo = GetMovieInfo(movieName);
+            //call again to test invocation index
+            //movieInfo = GetMovieInfo(movieName);
+            return movieInfo;
         }
 
         [Playback(typeof(MovieNameIdentifier))]
@@ -92,6 +96,8 @@ namespace MovieRental.Business.Integration
 
             //sub call to obtain score
             movie.Score = scoreService.GetScore(name);
+            //sub call again to test invocation index (leaf table persistence across services)
+            //movie.Score = scoreService.GetScore(name);
 
             return movie;
         }
