@@ -31,26 +31,37 @@ namespace MovieRental.Business.Integration
             
             if (name.Length % 2 == 0) //to demonstrate a inner score api to pass incoming TestFlask headers, 
                 //if movie name length is odd, fetch score from our ForgottenPotatoes API
+            //if (true)
             {
                 double score = 0;
 
                 //Here we enable test flask assistant core client message handler 
                 //to pass incoming test-flask headers from MVC app to our external score API backend
-                HttpClient httpClient = HttpClientFactory.Create(new TestFlaskMessageHandler());
-                httpClient.BaseAddress = new Uri("http://localhost:64283/");
 
-                var scoreRes = httpClient.GetAsync($"api/score/{name}").Result;
+                int repeat = 1; //repeat service call to test invocation index increment on cross service call
 
-                if (scoreRes.IsSuccessStatusCode)
+                Score lastScore = null;
+                for (int i = 0; i < repeat; i++)
                 {
-                    score = scoreRes.Content.ReadAsAsync<double>().Result;
+
+                    HttpClient httpClient = HttpClientFactory.Create(new TestFlaskMessageHandler());
+                    httpClient.BaseAddress = new Uri("http://localhost:64283/");
+
+                    var scoreRes = httpClient.GetAsync($"api/score/{name}").Result;
+
+                    if (scoreRes.IsSuccessStatusCode)
+                    {
+                        score = scoreRes.Content.ReadAsAsync<double>().Result;
+                    }
+
+                    lastScore = new Score
+                    {
+                        Rating = score,
+                        Source = RatingSource.ForgottenPotatoes
+                    };
                 }
 
-                return new Score
-                {
-                    Rating = score,
-                    Source = RatingSource.ForgottenPotatoes
-                };
+                return lastScore;
             }
             else
             {
