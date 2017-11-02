@@ -8,7 +8,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
 
 * This sample solution uses four TestFlask nuget packages. However, I have not deployed them to nuget.org yet. In order to create TestFlask nuget packages, clone [test-flask](https://github.com/FatihSahin/test-flask) repo
 
-* Build [test-flask](https://github.com/FatihSahin/test-flask) solution first, after that you need to prepare three nuget packages. You should create a folder in your machine to use it as nuget local repo. Configure your VS to use that local nuget repo as well.
+* Build [test-flask](https://github.com/FatihSahin/test-flask) solution first, after that you need to prepare four nuget packages. You should create a folder in your machine to use it as nuget local repo. Configure your VS to use that local nuget repo as well.
 
     1. Copy TestFlaskAddin.Fody package to your local nuget repo folder (This package will already be prepared inside NugetBuild folder when you properly build test-flask solution)
 
@@ -32,8 +32,6 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     [Playback(typeof(MovieNameIdentifier))]
     public Movie GetMovieWithStockCount(string name)
     {
-        //simulate a delay
-        Thread.Sleep(new Random().Next(500, 2000));
         //gets movie info from info service
         var movie = infoService.GetMovieInfo(name);
         //obtain stock info from stock service
@@ -50,9 +48,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     public Movie GetMovieWithStockCount(string name)
     {
         FuncPlayer<string, Movie> player = new FuncPlayer<string, Movie>("MovieRental.Models.Movie MovieRental.Business.RentalManager::GetMovieWithStockCount(System.String)", (IRequestIdentifier<string>) new MovieNameIdentifier(), (IResponseIdentifier<Movie>) null);
-
-        player.StartInvocation(name);
-
+        player.BeginInvocation(name);
         switch (player.DetermineTestMode(name))
         {
             case TestModes.NoMock:
@@ -62,13 +58,12 @@ TestFlask examples, docs and wikis will be based on that sample service solution
             case TestModes.Play:
                 return player.Play(name);
             default:
-                return (Movie) null;
+                throw new Exception("Invalid TestFlask test mode detected!");
         }
     }
 
     public Movie GetMovieWithStockCount__Original(string name)
     {
-        Thread.Sleep(new Random().Next(500, 2000));
         Movie movieInfo = this.infoService.GetMovieInfo(name);
         movieInfo.StockCount = this.stockService.GetStock(name);
         return movieInfo;
