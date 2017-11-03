@@ -57,11 +57,17 @@ namespace MovieRental.Business.Integration
         [Playback]
         public Movie GetRandomMovieInfo()
         {
-            var movieName = movies[new Random().Next(movies.Count)].Name;
+            var movieName = GrabARandomMovieName();
             var movieInfo = GetMovieInfo(movieName);
             //call again to test invocation index
             //movieInfo = GetMovieInfo(movieName);
             return movieInfo;
+        }
+
+        [Playback]
+        public string GrabARandomMovieName()
+        {
+            return movies[new Random().Next(movies.Count)].Name;
         }
 
         [Playback(typeof(MovieNameIdentifier))]
