@@ -238,8 +238,8 @@
    </soapenv:Body>\r
 </soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://tempuri.org/IMovieRentalService/GetMovie"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="932365b3-ce3f-4bfc-aaf8-fb429b03a800" isOneWay="false" action="http://tempuri.org/IMovieRentalService/RentMovie" name="RentMovie" bindingOperationName="RentMovie" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b99770cc-9521-4808-9314-5d0e5ac8a75e" name="RentMovie_Record_Sce1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
   &lt;con:entry key="TestFlask-ScenarioNo" value="1"/>
-  &lt;con:entry key="TestFlask-Mode" value="Record"/>
   &lt;con:entry key="TestFlask-ProjectKey" value="MovieRental"/>
+  &lt;con:entry key="TestFlask-Mode" value="Record"/>
 &lt;/xml-fragment></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:31728/MovieRentalService.svc</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
