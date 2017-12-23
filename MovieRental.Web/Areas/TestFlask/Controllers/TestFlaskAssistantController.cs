@@ -7,10 +7,10 @@ using System.Web.Mvc;
 using System.Web.SessionState;
 using TestFlask.Assistant.Mvc.ApiClient;
 using TestFlask.Assistant.Core.Config;
-using TestFlask.Models.Entity;
 using TestFlask.Assistant.Mvc.Models;
+using TestFlask.Models.Entity;
 
-namespace TestFlask.Assistant.Controllers
+namespace TestFlask.Assistant.Mvc.Controllers
 {
     public class TestFlaskAssistantController : Controller
     {

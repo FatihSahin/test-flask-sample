@@ -8,8 +8,8 @@ using TestFlask.Aspects;
 using MovieRental.Business.TestFlask;
 using System.Threading;
 using System.Net.Http;
-using TestFlask.Assistant.Core.WebApi;
 using TestFlask.Assistant.Core.Config;
+using TestFlask.Assistant.Core.WebApi;
 
 namespace MovieRental.Business.Integration
 {

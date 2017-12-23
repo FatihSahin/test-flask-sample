@@ -49,7 +49,7 @@
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, PublicKeyToken=15b1115599983c50, processorArchitecture=MSIL">
       <HintPath>..\packages\TestFlask.Aspects.1.0.0\lib\net452\MongoDB.Bson.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -75,10 +75,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="TestFlask.Aspects, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TestFlask.Aspects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b9114f222369bea, processorArchitecture=MSIL">
       <HintPath>..\packages\TestFlask.Aspects.1.0.0\lib\net452\TestFlask.Aspects.dll</HintPath>
     </Reference>
-    <Reference Include="TestFlask.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="TestFlask.Models, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b9114f222369bea, processorArchitecture=MSIL">
       <HintPath>..\packages\TestFlask.Aspects.1.0.0\lib\net452\TestFlask.Models.dll</HintPath>
     </Reference>
   </ItemGroup>
