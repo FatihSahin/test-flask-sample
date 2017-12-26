@@ -105,7 +105,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     ```xml
     <system.webServer>
         <modules runAllManagedModulesForAllRequests="true">
-            <add name="TestFlaskHttpModule" type="TestFlask.Aspects.Context.TestFlaskHttpModule, TestFlask.Aspects, PublicKeyToken=null, Version=1.0.0.0" />
+            <add name="TestFlaskHttpModule" type="TestFlask.Aspects.Context.TestFlaskHttpModule, TestFlask.Aspects, PublicKeyToken=5b9114f222369bea, Version=1.0.0.0" />
         </modules>
         ...
     </system.webServer>
@@ -153,7 +153,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
         <system.serviceModel>
             <extensions>
                 <behaviorExtensions>
-                    <add name="testFlaskAssistantForwardingEndpointBehavior" type="TestFlask.Assistant.Core.WcfExtensions.WcfEndpointBehaviorExtensionElement, TestFlask.Assistant, PublicKeyToken=null, Version=1.0.0.0" />
+                    <add name="testFlaskAssistantForwardingEndpointBehavior" type="TestFlask.Assistant.Core.WcfExtensions.WcfEndpointBehaviorExtensionElement, TestFlask.Assistant, PublicKeyToken=5b9114f222369bea, Version=1.0.0.0" />
                 </behaviorExtensions>
             </extensions>
             <behaviors>
@@ -181,7 +181,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     * Include render statement below inside your _Layout.html
 
     ```csharp
-    @{ Html.RenderPartial("~/Areas/TestFlask/Views/TestFlaskAssistant/Index.cshtml", TestFlask.Assistant.Models.TestFlaskAssistantContext.Current); }
+    @{ Html.RenderPartial("~/Areas/TestFlask/Views/TestFlaskAssistant/Index.cshtml", TestFlask.Assistant.Mvc.Models.AssistantSessionContext.Current); }
     ```
 
     * Include testFlask.css in your layout
@@ -206,7 +206,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
     <system.serviceModel>
         <extensions>
             <behaviorExtensions>
-                <add name="testFlaskAssistantEndpointBehavior" type="TestFlask.Assistant.Mvc.WcfExtensions.WcfEndpointBehaviorExtensionElement, TestFlask.Assistant.Mvc, PublicKeyToken=null, Version=1.0.0.0" />
+                <add name="testFlaskAssistantEndpointBehavior" type="TestFlask.Assistant.Mvc.WcfExtensions.WcfEndpointBehaviorExtensionElement, TestFlask.Assistant.Mvc, PublicKeyToken=5b9114f222369bea, Version=1.0.0.0" />
             </behaviorExtensions>
         </extensions>
         <behaviors>
