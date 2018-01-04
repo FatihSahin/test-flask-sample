@@ -50,8 +50,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, PublicKeyToken=15b1115599983c50, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="MongoDB.Bson, Version=2.4.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TestFlask.Assistant.Mvc.1.0.0\lib\net452\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -62,6 +61,10 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
@@ -117,16 +120,19 @@
     </Reference>
     <Reference Include="TestFlask.Aspects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b9114f222369bea, processorArchitecture=MSIL">
       <HintPath>..\packages\TestFlask.Aspects.1.0.0\lib\net452\TestFlask.Aspects.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="TestFlask.Assistant.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b9114f222369bea, processorArchitecture=MSIL">
+    <Reference Include="TestFlask.Assistant.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TestFlask.Assistant.Core.1.0.0\lib\net452\TestFlask.Assistant.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="TestFlask.Assistant.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5b9114f222369bea, processorArchitecture=MSIL">
+    <Reference Include="TestFlask.Assistant.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\TestFlask.Assistant.Mvc.1.0.0\lib\net452\TestFlask.Assistant.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="TestFlask.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\TestFlask.Aspects.1.0.0\lib\net452\TestFlask.Models.dll</HintPath>
+      <HintPath>..\packages\TestFlask.Assistant.Mvc.1.0.0\lib\net452\TestFlask.Models.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -138,9 +144,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Net.Http.Formatting">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Http">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
