@@ -93,7 +93,6 @@ var testFlask = {};
 
             $this.removeOptions(elem);
 
-
             var scenarios = JSON.parse(httpRequest.responseText);
             scenarios.forEach(sce => {
                 var option = document.createElement("option");
