@@ -2,6 +2,8 @@
 
 This repo contains a sample web app (MovieRental.Web) and a sample WCF service solution (MovieRental.Service)  that is weaved with [TestFlask](https://github.com/FatihSahin/test-flask) Fody addin. 
 
+For more information on TestFlask, visit [TestFlask GitHub Page](https://testflask.github.io).
+
 TestFlask examples, docs and wikis will be based on that sample service solution as much as possible. It is a fictional movie rental service that exposes information about movies and their stock state. There is nothing special about the service operations. (AddMovie, DeleteMovie, RentMovie). To demonstrate TestFlask, service and web ui will be kept simple.
 
 ## How to build MovieRental for TestFlask 
