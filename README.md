@@ -155,7 +155,7 @@ TestFlask examples, docs and wikis will be based on that sample service solution
         <system.serviceModel>
             <extensions>
                 <behaviorExtensions>
-                    <add name="testFlaskAssistantForwardingEndpointBehavior" type="TestFlask.Assistant.Core.WcfExtensions.WcfEndpointBehaviorExtensionElement, TestFlask.Assistant, PublicKeyToken=5b9114f222369bea, Version=1.0.0.0" />
+                    <add name="testFlaskAssistantForwardingEndpointBehavior" type="TestFlask.Assistant.Core.WcfExtensions.WcfEndpointBehaviorExtensionElement, TestFlask.Assistant.Core, PublicKeyToken=5b9114f222369bea, Version=1.0.0.0" />
                 </behaviorExtensions>
             </extensions>
             <behaviors>
